@@ -1,0 +1,214 @@
+{
+    "data": [
+        {
+            "id": 1,
+            "name": "Skinder",
+            "product": "Lettuce Romaine Chopped",
+            "marketing": "Stable burst fracture of fifth lumbar vertebra",
+            "prices": 8953
+        },
+        {
+            "id": 2,
+            "name": "Skippad",
+            "product": "Foil - 4oz Custard Cup",
+            "marketing": "Burn of third degree of neck, sequela",
+            "prices": 9223
+        },
+        {
+            "id": 3,
+            "name": "Voomm",
+            "product": "Pastry - French Mini Assorted",
+            "marketing": "Unsp fx upr end l tibia, 7thF",
+            "prices": 3931
+        },
+        {
+            "id": 4,
+            "name": "Jaloo",
+            "product": "Wine - Lamancha Do Crianza",
+            "marketing": "Inj flexor musc/fasc/tend unsp finger at wrs/hnd lv, subs",
+            "prices": 4911
+        },
+        {
+            "id": 5,
+            "name": "Snaptags",
+            "product": "Capicola - Hot",
+            "marketing": "Lac w fb of abd wall, unsp quadrant w penet perit cav, subs",
+            "prices": 3091
+        },
+        {
+            "id": 6,
+            "name": "Vinder",
+            "product": "Corn Meal",
+            "marketing": "Superficial frostbite of left arm, sequela",
+            "prices": 3646
+        },
+        {
+            "id": 7,
+            "name": "Dabvine",
+            "product": "Thyme - Fresh",
+            "marketing": "Disp fx of post column of r acetab, subs for fx w routn heal",
+            "prices": 5079
+        },
+        {
+            "id": 8,
+            "name": "Demimbu",
+            "product": "Green Tea Refresher",
+            "marketing": "Strain intrns musc/fasc/tend r mid fngr at wrs/hnd lv, subs",
+            "prices": 6430
+        },
+        {
+            "id": 9,
+            "name": "Quatz",
+            "product": "Lamb - Whole Head Off",
+            "marketing": "Pre-existing essential hypertension complicating pregnancy,",
+            "prices": 2543
+        },
+        {
+            "id": 10,
+            "name": "Flashdog",
+            "product": "Beef Dry Aged Tenderloin Aaa",
+            "marketing": "Contusion of unspecified middle finger with damage to nail",
+            "prices": 3283
+        },
+        {
+            "id": 11,
+            "name": "Yodoo",
+            "product": "Lettuce - Mini Greens, Whole",
+            "marketing": "Blister (nonthermal) of right elbow",
+            "prices": 3598
+        },
+        {
+            "id": 12,
+            "name": "Linkbridge",
+            "product": "Langers - Ruby Red Grapfruit",
+            "marketing": "Other fracture of shaft of right ulna, sequela",
+            "prices": 7367
+        },
+        {
+            "id": 13,
+            "name": "Ooba",
+            "product": "Cheese - Cream Cheese",
+            "marketing": "Preterm prem ROM, onset labor within 24 hours of rupture",
+            "prices": 1116
+        },
+        {
+            "id": 14,
+            "name": "Yacero",
+            "product": "Plate Pie Foil",
+            "marketing": "Blepharophimosis",
+            "prices": 8586
+        },
+        {
+            "id": 15,
+            "name": "Bluejam",
+            "product": "Pur Value",
+            "marketing": "Complex tear of medial meniscus, current injury",
+            "prices": 9445
+        },
+        {
+            "id": 16,
+            "name": "Devpoint",
+            "product": "Cheese - Marble",
+            "marketing": "Sltr-haris Type I physl fx upr end humer, r arm, 7thD",
+            "prices": 3339
+        },
+        {
+            "id": 17,
+            "name": "Zooveo",
+            "product": "Wine - Chateau Timberlay",
+            "marketing": "Puncture wound w foreign body of right shoulder, subs encntr",
+            "prices": 6274
+        },
+        {
+            "id": 18,
+            "name": "Youspan",
+            "product": "Lettuce - Romaine, Heart",
+            "marketing": "Underdosing of unspecified drugs acting on muscles",
+            "prices": 3736
+        },
+        {
+            "id": 19,
+            "name": "Zoomcast",
+            "product": "Appetizer - Tarragon Chicken",
+            "marketing": "Path fracture in neoplastic disease, left hand, sequela",
+            "prices": 2327
+        },
+        {
+            "id": 20,
+            "name": "Skinix",
+            "product": "Soup - Campbells, Cream Of",
+            "marketing": "Umbilical polyp of newborn",
+            "prices": 1920
+        },
+        {
+            "id": 21,
+            "name": "Twimm",
+            "product": "Bulgar",
+            "marketing": "Displ seg fx shaft of l femr, 7thR",
+            "prices": 7798
+        },
+        {
+            "id": 22,
+            "name": "Skibox",
+            "product": "Wine - Shiraz South Eastern",
+            "marketing": "Exposure of implanted urethral mesh into urethra, init",
+            "prices": 8500
+        },
+        {
+            "id": 23,
+            "name": "Oodoo",
+            "product": "Turkey - Breast, Boneless Sk On",
+            "marketing": "Injury of facial nerve, right side",
+            "prices": 4392
+        },
+        {
+            "id": 24,
+            "name": "Skiba",
+            "product": "Pastry - Cherry Danish - Mini",
+            "marketing": "Oth diabetes w diabetic peripheral angiopathy w gangrene",
+            "prices": 8771
+        },
+        {
+            "id": 25,
+            "name": "Mudo",
+            "product": "Cardamon Seed / Pod",
+            "marketing": "Congenital pneumonia",
+            "prices": 1533
+        },
+        {
+            "id": 26,
+            "name": "Vimbo",
+            "product": "Pails With Lids",
+            "marketing": "Ankylosis, left foot",
+            "prices": 1588
+        },
+        {
+            "id": 27,
+            "name": "Twiyo",
+            "product": "Ecolab - Hobart Washarm End Cap",
+            "marketing": "Nondisp fx of lateral condyle of l humer, 7thG",
+            "prices": 8604
+        },
+        {
+            "id": 28,
+            "name": "Zoomcast",
+            "product": "Bread - Rye",
+            "marketing": "Toxic effect of contact w oth venomous plant, undet, init",
+            "prices": 5501
+        },
+        {
+            "id": 29,
+            "name": "Jaxbean",
+            "product": "Pasta - Fett Alfredo, Single Serve",
+            "marketing": "Lacerat musc/tend peroneal grp at low leg lev, l leg, subs",
+            "prices": 7976
+        },
+        {
+            "id": 30,
+            "name": "Jaxnation",
+            "product": "Beef - Kindney, Whole",
+            "marketing": "Puncture wound without foreign body of left forearm, sequela",
+            "prices": 5641
+        }
+    ]
+}
