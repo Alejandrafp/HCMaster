@@ -6,6 +6,9 @@ import { PrimeNGConfig } from 'primeng/api';
     templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit {
+    title(title: any) {
+      throw new Error('Method not implemented.');
+    }
 
     constructor(private primengConfig: PrimeNGConfig) { }
 

@@ -1,0 +1,151 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card px-6 py-6">
+            <p-toast></p-toast>
+            <p-toolbar styleClass="mb-4">
+                <ng-template pTemplate="left">
+                    <div class="my-2">
+                        <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
+                        <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedclientes()" [disabled]="!selectedclientes || !selectedclientes.length"></button>
+                    </div>
+                </ng-template>
+
+                <ng-template pTemplate="right">
+                    <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import" class="mr-2 inline-block"></p-fileUpload>
+                    <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help" (click)="dt.exportCSV()"></button>
+                </ng-template>
+            </p-toolbar>
+
+            <p-table #dt [value]="clientes" [columns]="cols" responsiveLayout="scroll" [rows]="10" [globalFilterFields]="['nombre','country.nombre','representative.nombre','status']" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [(selection)]="selectedclientes" selectionMode="multiple" [rowHover]="true" dataKey="id">
+                <ng-template pTemplate="caption">
+                    <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+                        <h5 class="m-0">Administrar clientes</h5>
+                        <span class="block mt-2 md:mt-0 p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Search..."  class="w-full sm:w-auto"/>
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 3rem">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
+                        <th pSortableColumn="code">Id <p-sortIcon field="code"></p-sortIcon></th>
+                        <th pSortableColumn="nombre">nombre <p-sortIcon field="nombre"></p-sortIcon></th>
+                        <th pSortableColumn="genero">genero <p-sortIcon field="genero"></p-sortIcon></th>
+                        <th pSortableColumn="ubicacion">ubicacion <p-sortIcon field="ubicacion"></p-sortIcon></th>
+                        <th pSortableColumn="edad">edad <p-sortIcon field="edad"></p-sortIcon></th>
+                        <th pSortableColumn="preferencias">preferencias <p-sortIcon field="preferencias"></p-sortIcon></th>
+                        <th pSortableColumn="comportamiento">comportamiento <p-sortIcon field="comportamiento"></p-sortIcon></th>
+                        <th pSortableColumn="inventoryStatus">Acciones <p-sortIcon field="inventoryStatus"></p-sortIcon></th>
+                        <th></th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-clientes>
+                    <tr>
+                        <td>
+                            <p-tableCheckbox [value]="clientes"></p-tableCheckbox>
+                        </td>
+                        <td style="width:14%; min-width:10rem;"><span class="p-column-title">Code</span>
+                            {{clientes.code || clientes.id}}
+                        </td>
+                        <td style="width:14%; min-width:10rem;">
+                            <span class="p-column-title">nombre</span>
+                            {{clientes.nombre}}
+                        </td>
+                        <td style="width:14%; min-width:10rem;"><span class="p-column-title">genero</span>
+                            {{clientes.genero}}
+                        </td>
+                        <td style="width:14%; min-width:10rem;"><span class="p-column-title">ubicacion</span>
+                            {{clientes.ubicacion}}
+                        </td>
+                        <td style="width:14%; min-width:8rem;">
+                            <span class="p-column-title">edad</span>
+                            {{clientes.edad | number:''}}
+                        </td>
+                        <td style="width:14%; min-width:10rem;"><span class="p-column-title">preferencias</span>
+                            {{clientes.preferencias}}
+                        </td>
+                        <td style="width:14%; min-width:10rem;"><span class="p-column-title">comportamiento</span>
+                            {{clientes.comportamiento}}
+                        </td>
+                        <td>
+                            <div class="flex">
+                                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editclientes(clientes)"></button>
+                                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteclientes(clientes)"></button>
+                            </div>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+
+       
+<p-dialog   [(visible)]="clientesDialog" [style]="{width: '450px'}" header="Detalle de clientes" [modal]="true" class="p-fluid">
+
+    <ng-template pTemplate="content">
+        
+        <div class="field">
+            <label for="nombre">nombre</label>
+            <input type="text" pInputText id="nombre" [(ngModel)]="clientes.nombre" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !clientes.nombre}"/>
+            <small class="ng-dirty ng-invalid" *ngIf="submitted && !clientes.nombre">nombre es requerido.</small>
+        </div>
+        <div class="field">
+            <label for="genero">genero</label>
+            <input type="text" pInputText id="genero" [(ngModel)]="clientes.genero" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !clientes.genero}"/>
+            <small class="ng-dirty ng-invalid" *ngIf="submitted && !clientes.genero">genero es requerido.</small>
+        </div>
+        <div class="field">
+            <label for="ubicacion">ubicacion</label>
+            <input type="text" pInputText id="ubicacion" [(ngModel)]="clientes.ubicacion" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !clientes.ubicacion}"/>
+            <small class="ng-dirty ng-invalid" *ngIf="submitted && !clientes.ubicacion">ubicacion es requerido.</small>
+        </div>
+        <div class="field">
+            <label for="edad">edad</label>
+            <input id="edad"  type="number"  pInputText [(ngModel)]="clientes.edad" required rows="3" cols="20"/>
+        </div>
+        <div class="field">
+            <label for="preferencias">preferencias</label>
+            <input type="text" pInputText id="preferencias" [(ngModel)]="clientes.preferencias" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !clientes.preferencias}"/>
+            <small class="ng-dirty ng-invalid" *ngIf="submitted && !clientes.preferencias">preferencias es requerido.</small>
+        </div>
+        <div class="field">
+            <label for="comportamiento">comportamiento</label>
+            <input type="text" pInputText id="comportamiento" [(ngModel)]="clientes.comportamiento" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !clientes.comportamiento}"/>
+            <small class="ng-dirty ng-invalid" *ngIf="submitted && !clientes.comportamiento">comportamiento es requerido.</small>
+        </div>
+    
+    </ng-template>
+    
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveclientes()"></button>
+    </ng-template>
+    </p-dialog>
+
+
+        <p-dialog [(visible)]="deleteclientesDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">
+            <div class="flex align-items-center justify-content-center">
+                <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+                <span *ngIf="clientes">Are you sure you want to delete <b>{{clientes.nombre}}</b>?</span>
+            </div>
+            <ng-template pTemplate="footer">
+                <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No" (click)="deleteclientesDialog = false"></button>
+                <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes" (click)="confirmDelete()"></button>
+            </ng-template>
+        </p-dialog>
+
+        <p-dialog [(visible)]="deleteclientesDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">
+            <div class="flex align-items-center justify-content-center">
+                <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+                <span>Are you sure you want to delete selected clientes?</span>
+            </div>
+            <ng-template pTemplate="footer">
+                <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No" (click)="deleteclientesDialog = false"></button>
+                <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes" (click)="confirmDeleteSelected()"></button>
+            </ng-template>
+        </p-dialog>
+    </div>
+</div>
+
