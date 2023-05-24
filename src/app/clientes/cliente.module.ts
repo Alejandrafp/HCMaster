@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { clientesRoutingModule } from './clientes-routing.module';
-import { clientesComponent } from './pages/clientes/clientes.component';
+import { clienteRoutingModule } from './cliente-routing.module';
+import { clienteComponent } from './pages/clientes/cliente.component';
 
 import { FormsModule } from '@angular/forms';
 import { TableModule } from 'primeng/table';
@@ -19,17 +19,17 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { DialogModule } from 'primeng/dialog';
 import { MessageService } from 'primeng/api';
-import { clientesDetailComponent } from './components/clientes-detail/clientes-detail.component';
-import { clientesService } from './Service/clientes.service';
+import { clienteDetailComponent } from './components/cliente-detail/cliente-detail.component';
+import { clienteService } from './Service/cliente.service';
 
 @NgModule({
   declarations: [
-    clientesComponent,
-    clientesDetailComponent
+    clienteComponent,
+    clienteDetailComponent
   ],
   imports: [
     CommonModule,
-    clientesRoutingModule,
+    clienteRoutingModule,
     TableModule,
     FileUploadModule,
     FormsModule,
@@ -45,6 +45,6 @@ import { clientesService } from './Service/clientes.service';
     InputNumberModule,
     DialogModule
   ],
-  providers: [MessageService,clientesService]
+  providers: [MessageService,clienteService]
 })
-export class clientesModule { }
+export class clienteModule { }
