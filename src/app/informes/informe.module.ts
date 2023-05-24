@@ -47,4 +47,4 @@ import { informeService } from './Service/informe.service';
   ],
   providers: [MessageService,informeService]
 })
-export class informeModule { }
+export class informesModule { }
