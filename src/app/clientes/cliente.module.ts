@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { clienteRoutingModule } from './cliente-routing.module';
-import { clienteComponent } from './pages/clientes/cliente.component';
+import { clienteComponent } from './pages/cliente/cliente.component';
 
 import { FormsModule } from '@angular/forms';
 import { TableModule } from 'primeng/table';

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { Table } from 'primeng/table/table';
 import { cliente } from '../../api/cliente';
-import { clientesService } from '../../Service/cliente.service';
+import { clienteService } from '../../Service/cliente.service';
 
 
 @Component({
@@ -31,10 +31,10 @@ export class clienteComponent implements OnInit {
 
     rowsPerPageOptions = [5, 10, 20];
 
-    constructor(private clientesService: clientesService, private messageService: MessageService) { }
+    constructor(private clienteService: clienteService, private messageService: MessageService) { }
 
     ngOnInit() {
-        this.clientesService.getclientess().then(data => this.clientes = data);
+        this.clienteService.getclientess().then(data => this.clientes = data);
 
         this.cols = [
             { field: 'id', header: 'Id' },
