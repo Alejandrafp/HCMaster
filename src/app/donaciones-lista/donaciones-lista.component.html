@@ -1,0 +1,23 @@
+<h2>Listado de Donaciones</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Nombre del Donante</th>
+      <th>Cantidad Donada</th>
+      <th>Fecha</th>
+      <th>Proyecto ID</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let donacion of donaciones">
+      <td>{{ donacion.nombreDonante }}</td>
+      <td>{{ donacion.cantidadDonada }}</td>
+      <td>{{ donacion.fecha }}</td>
+      <td>{{ donacion.proyectoId }}</td>
+      <td>
+        <button *ngIf="donacion.id" (click)="eliminarDonacion(donacion.id)">Eliminar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
