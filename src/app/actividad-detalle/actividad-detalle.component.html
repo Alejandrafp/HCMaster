@@ -1,0 +1,13 @@
+<h2>Detalle de la Actividad</h2>
+
+<div *ngIf="actividad">
+  <p><strong>ID:</strong> {{ actividad.id }}</p>
+  <p><strong>Título:</strong> {{ actividad.titulo }}</p>
+  <p><strong>Descripción:</strong> {{ actividad.descripcion }}</p>
+  <p><strong>Ubicación:</strong> {{ actividad.ubicacion }}</p>
+  <p><strong>Fecha y Hora:</strong> {{ actividad.fechaHora | Date }}</p>
+  <p><strong>Voluntarios Requeridos:</strong> {{ actividad.voluntariosRequeridos }}</p>
+  <p><strong>Organización ID:</strong> {{ actividad.organizacionId }}</p>
+  <button routerLink="/actividades">Volver</button>
+
+</div>

@@ -1,0 +1,24 @@
+<h2>Editar Actividad</h2>
+
+<form (submit)="guardarActividad()">
+  <label>Título:</label>
+  <input type="text" [(ngModel)]="actividad.titulo" required>
+
+  <label>Descripción:</label>
+  <textarea [(ngModel)]="actividad.descripcion" required></textarea>
+
+  <label>Ubicación:</label>
+  <input type="text" [(ngModel)]="actividad.ubicacion" required>
+
+  <label>Fecha y Hora:</label>
+  <input type="datetime-local" [(ngModel)]="actividad.fechaHora" required>
+
+  <label>Voluntarios Requeridos:</label>
+  <input type="number" [(ngModel)]="actividad.voluntariosRequeridos" required>
+
+  <label>Organización ID:</label>
+  <input type="number" [(ngModel)]="actividad.organizacionId" required>
+
+  <button type="submit">Guardar</button>
+  <button type="button" (click)="cancelar()">Cancelar</button>
+</form>
