@@ -1,0 +1,25 @@
+<h2>Lista de Voluntarios</h2>
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Nombre</th>
+    <th>Apellido</th>
+    <th>Correo Electrónico</th>
+    <th>Descripción</th>
+    <th>Habilidades</th>
+    <th>Actividad Voluntariado ID</th>
+    <th>Acciones</th>
+  </tr>
+  <tr *ngFor="let voluntario of voluntarios">
+    <td>{{ voluntario.id }}</td>
+    <td>{{ voluntario.nombre }}</td>
+    <td>{{ voluntario.apellido }}</td>
+    <td>{{ voluntario.correo }}</td>
+    <td>{{ voluntario.descripcion }}</td>
+    <td>{{ voluntario.habilidades }}</td>
+    <td>{{ voluntario.actividadVoluntariadoId }}</td>
+    <td>
+      <button (click)="eliminarVoluntario(voluntario.id)">Eliminar</button>
+    </td>
+  </tr>
+</table>
