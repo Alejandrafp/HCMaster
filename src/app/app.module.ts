@@ -11,10 +11,22 @@ import { EventService } from './demo/service/event.service';
 import { IconService } from './demo/service/icon.service';
 import { NodeService } from './demo/service/node.service';
 import { PhotoService } from './demo/service/photo.service';
+import { ActividadListaComponent } from './actividad-lista/actividad-lista.component';
+import { ActividadDetalleComponent } from './actividad-detalle/actividad-detalle.component';
+import { ActividadCrearComponent } from './actividad-crear/actividad-crear.component';
+import { ActividadEditarComponent } from './actividad-editar/actividad-editar.component';
+import { CommonModule } from '@angular/common';
+
 
 @NgModule({
     declarations: [
-        AppComponent, NotfoundComponent
+        AppComponent,  
+        CommonModule, 
+        NotfoundComponent, 
+        ActividadListaComponent, 
+        ActividadDetalleComponent, 
+        ActividadCrearComponent, 
+        ActividadEditarComponent
     ],
     imports: [
         AppRoutingModule,
