@@ -1,0 +1,47 @@
+<h1>Voluntarios</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nombre</th>
+      <th>Apellido</th>
+      <th>Correo Electrónico</th>
+      <th>Descripción</th>
+      <th>Habilidades</th>
+      <th>Actividad Voluntariado ID</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let voluntario of voluntarios">
+      <td>{{ voluntario.id }}</td>
+      <td>{{ voluntario.nombre }}</td>
+      <td>{{ voluntario.apellido }}</td>
+      <td>{{ voluntario.correoElectronico }}</td>
+      <td>{{ voluntario.descripcion }}</td>
+      <td>{{ voluntario.habilidades }}</td>
+      <td>{{ voluntario.actividadVoluntariadoId }}</td>
+      <td>
+        <button (click)="editarVoluntario(voluntario.id)">Editar</button>
+        <button (click)="eliminarVoluntario(voluntario.id)">Eliminar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<form (submit)="guardarVoluntario()">
+  <label for="nombre">Nombre:</label>
+  <input type="text" id="nombre" [(ngModel)]="nuevoVoluntario.nombre" required>
+  <label for="apellido">Apellido:</label>
+  <input type="text" id="apellido" [(ngModel)]="nuevoVoluntario.apellido" required>
+  <label for="correoElectronico">Correo Electrónico:</label>
+  <input type="email" id="correoElectronico" [(ngModel)]="nuevoVoluntario.correoElectronico" required>
+  <label for="descripcion">Descripción:</label>
+  <textarea id="descripcion" [(ngModel)]="nuevoVoluntario.descripcion" required></textarea>
+  <label for="habilidades">Habilidades:</label>
+  <input type="text" id="habilidades" [(ngModel)]="nuevoVoluntario.habilidades" required>
+  <label for="actividadVoluntariadoId">Actividad Voluntariado ID:</label>
+  <input type="number" id="actividadVoluntariadoId" [(ngModel)]="nuevoVoluntario.actividadVoluntariadoId" required>
+  <button type="submit">Guardar</button>
+</form>
