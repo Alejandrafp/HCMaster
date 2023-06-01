@@ -1,12 +1,16 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { DonacionesListaComponent } from './donaciones-lista/donaciones-lista.component';
-import { DonacionesFormularioComponent } from './donaciones-formulario/donaciones-formulario.component';
+import { DonacionesListComponent } from './donaciones-list/donaciones-list.component';
+import { DonacionesDetailComponent } from './donaciones-detail/donaciones-detail.component';
+import { DonacionesCreateComponent } from './donaciones-create/donaciones-create.component';
+import { DonacionesEditComponent } from './donaciones-edit/donaciones-edit.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/donaciones', pathMatch: 'full' },
-  { path: 'donaciones', component: DonacionesListaComponent },
-  { path: 'donaciones/nueva', component: DonacionesFormularioComponent },
+  { path: '', redirectTo: 'donaciones', pathMatch: 'full' },
+  { path: 'donaciones', component: DonacionesListComponent },
+  { path: 'donaciones/:id', component: DonacionesDetailComponent },
+  { path: 'create', component: DonacionesCreateComponent },
+  { path: 'edit/:id', component: DonacionesEditComponent },
 ];
 
 @NgModule({

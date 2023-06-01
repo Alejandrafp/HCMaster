@@ -1,23 +1,24 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
-import { DonacionesListaComponent } from './donaciones-lista/donaciones-lista.component';
-import { DonacionesFormularioComponent } from './donaciones-formulario/donaciones-formulario.component';
-import { FormsModule } from '@angular/forms';
+import { DonacionesListComponent } from './donaciones-list/donaciones-list.component';
+import { DonacionesDetailComponent } from './donaciones-detail/donaciones-detail.component';
+import { DonacionesCreateComponent } from './donaciones-create/donaciones-create.component';
+import { DonacionesEditComponent } from './donaciones-edit/donaciones-edit.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    DonacionesListaComponent,
-    DonacionesFormularioComponent
+    DonacionesListComponent,
+    DonacionesDetailComponent,
+    DonacionesCreateComponent,
+    DonacionesEditComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    FormsModule
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
