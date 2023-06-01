@@ -1,0 +1,53 @@
+<h2>Donaciones</h2>
+
+<div class="form">
+  <h3>{{ donacionSeleccionada ? 'Editar Donación' : 'Crear Donación' }}</h3>
+  <form (ngSubmit)="donacionSeleccionada ? updateDonacion() : createDonacion()">
+    <div class="input-group">
+      <label for="nombreDonante">Nombre de Donante:</label>
+      <input type="text" id="nombreDonante" [(ngModel)]="donacionSeleccionada.nombreDonante" name="nombreDonante" required>
+    </div>
+    <div class="input-group">
+      <label for="cantidadDonada">Cantidad Donada:</label>
+      <input type="number" id="cantidadDonada" [(ngModel)]="donacionSeleccionada.cantidadDonada" name="cantidadDonada" required>
+    </div>
+    <div class="input-group">
+      <label for="fecha">Fecha:</label>
+      <input type="date" id="fecha" [(ngModel)]="donacionSeleccionada.fecha" name="fecha" required>
+    </div>
+    <div class="input-group">
+      <label for="proyectoId">Proyecto ID:</label>
+      <input type="number" id="proyectoId" [(ngModel)]="donacionSeleccionada.proyectoId" name="proyectoId" required>
+    </div>
+    <div class="buttons">
+      <button type="submit">{{ donacionSeleccionada? 'Actualizar' : 'Crear' }}</button>
+      <button type="button" (click)="clearForm()">Limpiar</button>
+    </div>
+  </form>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nombre de Donante</th>
+      <th>Cantidad Donada</th>
+      <th>Fecha</th>
+      <th>Proyecto ID</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let donacion of donaciones">
+      <td>{{ donacion.id }}</td>
+      <td>{{ donacion.nombreDonante }}</td>
+      <td>{{ donacion.cantidadDonada }}</td>
+      <td>{{ donacion.fecha | date }}</td>
+      <td>{{ donacion.proyectoId }}</td>
+      <td>
+        <button (click)="clearForm()">Editar</button>
+        <button (click)="deleteDonacion(donacion.id)">Eliminar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
