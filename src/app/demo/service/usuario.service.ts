@@ -1,18 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Usuario } from '../api/usuario';
+import { HCMasterApiService } from 'src/app/hcmaster-api.service';
 
 @Injectable({
-    providedIn: 'root'
-  })
+  providedIn: 'root'
+})
 export class UsuarioService {
+  constructor(private http: HttpClient, private api: HCMasterApiService) { }
 
-    constructor(private http: HttpClient) { }
-    
-      getUsuario() {
-        return this.http.get<any>('assets/demo/data/usuario.json')
-            .toPromise()
-            .then(res => res.data as Usuario[])
-            .then(data => data);
-    }
-    }
+  async getUsuario() {
+     this.api.getUsuarios().subscribe((data) => {
+      
+    });
+
+  }
+}

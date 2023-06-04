@@ -1,8 +1,10 @@
 export interface Usuario {
-    id?: string;
+    id?: number;
     name?: string;
     email?: string;
-    charge?: string;
-    status?: string;
     position?: string;
+    phone?: string;
+    lastname?: string;
+    address?: string;
+    password?: string;
 }
