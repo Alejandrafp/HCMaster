@@ -16,23 +16,23 @@ interface Actividad {
   providedIn: 'root'
 })
 export class ActividadesService {
-  private apiUrl = 'API'; // Aqui va el api t.t
+  readonly HCMasterURL = "https://localhost:7036/api"
 
   constructor(private http: HttpClient) { }
 
   obtenerActividades(): Observable<Actividad[]> {
-    return this.http.get<Actividad[]>(`${this.apiUrl}/actividades`);
+    return this.http.get<Actividad[]>(`${this.HCMasterURL}/actividades`);
   }
 
   agregarActividad(actividad: Actividad): Observable<any> {
-    return this.http.post(`${this.apiUrl}/actividades`, actividad);
+    return this.http.post(`${this.HCMasterURL}/actividades`, actividad);
   }
 
   editarActividad(actividad: Actividad): Observable<any> {
-    return this.http.put(`${this.apiUrl}/actividades/${actividad.id}`, actividad);
+    return this.http.put(`${this.HCMasterURL}/actividades/${actividad.id}`, actividad);
   }
 
   eliminarActividad(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/actividades/${id}`);
+    return this.http.delete(`${this.HCMasterURL}/actividades/${id}`);
   }
 }
