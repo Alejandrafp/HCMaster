@@ -19,7 +19,7 @@ export class DonacionesComponent implements OnInit {
   }
 
   getDonaciones() {
-    this.http.get<any[]>('API/donaciones').subscribe(
+    this.http.get<any[]>('https://localhost:7036/api/donaciones').subscribe(
       (response) => {
         this.donaciones = response;
       },
@@ -31,7 +31,7 @@ export class DonacionesComponent implements OnInit {
 
   // Método para crear una nueva donación
   createDonacion() {
-    this.http.post('API/donaciones', this.donacionSeleccionada).subscribe(
+    this.http.post('https://localhost:7036/api/donaciones', this.donacionSeleccionada).subscribe(
       () => {
         this.clearForm();
         this.getDonaciones();
@@ -44,7 +44,7 @@ export class DonacionesComponent implements OnInit {
 
   // Método para actualizar una donación existente
   updateDonacion() {
-    this.http.put(`API/donaciones/${this.donacionSeleccionada.id}`, this.donacionSeleccionada).subscribe(
+    this.http.put(`https://localhost:7036/api/donaciones/${this.donacionSeleccionada.id}`, this.donacionSeleccionada).subscribe(
       () => {
         this.clearForm();
         this.getDonaciones();
@@ -57,7 +57,7 @@ export class DonacionesComponent implements OnInit {
 
   // Método para eliminar una donación
   deleteDonacion(id: number) {
-    this.http.delete(`API/donaciones/${id}`).subscribe(
+    this.http.delete(`https://localhost:7036/api/donaciones/${id}`).subscribe(
       () => {
         this.getDonaciones();
       },
