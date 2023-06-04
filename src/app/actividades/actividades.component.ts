@@ -36,14 +36,14 @@ export class ActividadesComponent implements OnInit {
   }
 
   cargarActividades(): void {
-    this.http.get<Actividad[]>('API')
+    this.http.get<Actividad[]>('https://localhost:7036/api')
       .subscribe(data => {
         this.actividades = data;
       });
   }
 
   agregarActividad(actividadForm: NgForm): void {
-    this.http.post('API', actividadForm.value)
+    this.http.post('https://localhost:7036/api', actividadForm.value)
       .subscribe(() => {
         actividadForm.resetForm();
         this.cargarActividades();
@@ -51,14 +51,14 @@ export class ActividadesComponent implements OnInit {
   }
 
   editarActividad(actividad: Actividad): void {
-    this.http.put(`API/${actividad.id}`, actividad)
+    this.http.put(`https://localhost:7036/api/${actividad.id}`, actividad)
       .subscribe(() => {
         this.cargarActividades();
       });
   }
 
   eliminarActividad(id: number): void {
-    this.http.delete(`API/${id}`)
+    this.http.delete(`https://localhost:7036/api/${id}`)
       .subscribe(() => {
         this.cargarActividades();
       });
