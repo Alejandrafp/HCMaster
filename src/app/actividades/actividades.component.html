@@ -1,0 +1,50 @@
+<h1>Actividades de Voluntarios</h1>
+
+<form #actividadFormRef="ngForm" (submit)="agregarActividad(actividadFormRef)">
+    <label for="titulo">Título:</label>
+    <input id="titulo" type="text" name="titulo" [(ngModel)]="actividadForm.titulo" required>
+  
+    <label for="descripcion">Descripción:</label>
+    <textarea id="descripcion" name="descripcion" [(ngModel)]="actividadForm.descripcion" required></textarea>
+  
+    <label for="ubicacion">Ubicación:</label>
+    <input id="ubicacion" type="text" name="ubicacion" [(ngModel)]="actividadForm.ubicacion" required>
+  
+    <label for="fechaHora">Fecha y Hora:</label>
+    <input id="fechaHora" type="datetime-local" name="fechaHora" [(ngModel)]="actividadForm.fechaHora" required>
+  
+    <label for="voluntariosRequeridos">Voluntarios Requeridos:</label>
+    <input id="voluntariosRequeridos" type="number" name="voluntariosRequeridos" [(ngModel)]="actividadForm.voluntariosRequeridos" required>
+  
+    <label for="organizacionId">Organización ID:</label>
+    <input id="organizacionId" type="number" name="organizacionId" [(ngModel)]="actividadForm.organizacionId" required>
+  
+    <button type="submit">Agregar Actividad</button>
+  </form>
+  
+
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Título</th>
+    <th>Descripción</th>
+    <th>Ubicación</th>
+    <th>Fecha y Hora</th>
+    <th>Voluntarios Requeridos</th>
+    <th>Organización ID</th>
+    <th>Acciones</th>
+  </tr>
+  <tr *ngFor="let actividad of actividades">
+    <td>{{ actividad.id }}</td>
+    <td>{{ actividad.titulo }}</td>
+    <td>{{ actividad.descripcion }}</td>
+    <td>{{ actividad.ubicacion }}</td>
+    <td>{{ actividad.fechaHora }}</td>
+    <td>{{ actividad.voluntariosRequeridos }}</td>
+    <td>{{ actividad.organizacionId }}</td>
+    <td>
+      <button (click)="editarActividad(actividad)">Editar</button>
+      <button (click)="eliminarActividad(actividad.id)">Eliminar</button>
+    </td>
+  </tr>
+</table>
