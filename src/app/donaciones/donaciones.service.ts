@@ -7,27 +7,27 @@ import { Donacion } from './donacion.model';
   providedIn: 'root'
 })
 export class DonacionesService {
-  private apiUrl = 'API'; // aqui debe ir el api t.t
+  readonly HCMasterURL = "https://localhost:7036/api"
 
   constructor(private http: HttpClient) { }
 
   getDonaciones(): Observable<Donacion[]> {
-    return this.http.get<Donacion[]>(`${this.apiUrl}/donaciones`);
+    return this.http.get<Donacion[]>(`${this.HCMasterURL}/donaciones`);
   }
 
   getDonacion(id: number): Observable<Donacion> {
-    return this.http.get<Donacion>(`${this.apiUrl}/donaciones/${id}`);
+    return this.http.get<Donacion>(`${this.HCMasterURL}/donaciones/${id}`);
   }
 
   createDonacion(donacion: Donacion): Observable<Donacion> {
-    return this.http.post<Donacion>(`${this.apiUrl}/donaciones`, donacion);
+    return this.http.post<Donacion>(`${this.HCMasterURL}/donaciones`, donacion);
   }
 
   updateDonacion(donacion: Donacion): Observable<Donacion> {
-    return this.http.put<Donacion>(`${this.apiUrl}/donaciones/${donacion.id}`, donacion);
+    return this.http.put<Donacion>(`${this.HCMasterURL}/donaciones/${donacion.id}`, donacion);
   }
 
   deleteDonacion(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/donaciones/${id}`);
+    return this.http.delete<void>(`${this.HCMasterURL}/donaciones/${id}`);
   }
 }
