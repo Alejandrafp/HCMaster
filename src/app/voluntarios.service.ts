@@ -12,18 +12,18 @@ export class VoluntariosService {
   constructor(private http: HttpClient) { }
 
   obtenerVoluntarios(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.HCMasterURL}/voluntarios`);
+    return this.http.get<any[]>(`${this.HCMasterURL}/Voluntarios`);
   }
 
   crearVoluntario(voluntario: any): Observable<any> {
-    return this.http.post<any>(`${this.HCMasterURL}/voluntarios`, voluntario);
+    return this.http.post<any>(`${this.HCMasterURL}/Voluntarios`, voluntario);
   }
 
   actualizarVoluntario(id: number, voluntario: any): Observable<any> {
-    return this.http.put<any>(`${this.HCMasterURL}/voluntarios/${id}`, voluntario);
+    return this.http.put<any>(`${this.HCMasterURL}/Voluntarios/${id}`, voluntario);
   }
 
   eliminarVoluntario(id: number): Observable<any> {
-    return this.http.delete<any>(`${this.HCMasterURL}/voluntarios/${id}`);
+    return this.http.delete<any>(`${this.HCMasterURL}/Voluntarios/${id}`);
   }
 }
