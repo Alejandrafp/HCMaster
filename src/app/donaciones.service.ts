@@ -11,22 +11,22 @@ export class DonacionesService {
   constructor(private http: HttpClient) { }
 
   getDonaciones(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/donaciones`);
+    return this.http.get(`${this.apiUrl}/Donaciones`);
   }
 
   getDonacion(id: number): Observable<any> {
-    return this.http.get(`${this.apiUrl}/donaciones/${id}`);
+    return this.http.get(`${this.apiUrl}/Donaciones/${id}`);
   }
 
   createDonacion(donacion: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/donaciones`, donacion);
+    return this.http.post(`${this.apiUrl}/Donaciones`, donacion);
   }
 
   updateDonacion(id: number, donacion: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/donaciones/${id}`, donacion);
+    return this.http.put(`${this.apiUrl}/Donaciones/${id}`, donacion);
   }
 
   deleteDonacion(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/donaciones/${id}`);
+    return this.http.delete(`${this.apiUrl}/Donaciones/${id}`);
   }
 }
