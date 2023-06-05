@@ -21,18 +21,18 @@ export class ActividadesService {
   constructor(private http: HttpClient) { }
 
   obtenerActividades(): Observable<Actividad[]> {
-    return this.http.get<Actividad[]>(`${this.HCMasterURL}/actividades`);
+    return this.http.get<Actividad[]>(`${this.HCMasterURL}/ActividadesVoluntariado`);
   }
 
   agregarActividad(actividad: Actividad): Observable<any> {
-    return this.http.post(`${this.HCMasterURL}/actividades`, actividad);
+    return this.http.post(`${this.HCMasterURL}/ActividadesVoluntariado`, actividad);
   }
 
   editarActividad(actividad: Actividad): Observable<any> {
-    return this.http.put(`${this.HCMasterURL}/actividades/${actividad.id}`, actividad);
+    return this.http.put(`${this.HCMasterURL}/ActividadesVoluntariado/${actividad.id}`, actividad);
   }
 
   eliminarActividad(id: number): Observable<any> {
-    return this.http.delete(`${this.HCMasterURL}/actividades/${id}`);
+    return this.http.delete(`${this.HCMasterURL}/ActividadesVoluntariado/${id}`);
   }
 }
