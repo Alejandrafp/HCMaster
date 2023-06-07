@@ -11,6 +11,7 @@ export class HCMasterApiService {
 
   constructor(private http: HttpClient) { }
 
+  //Usuarios
   getUsuarios(): Observable<any[]> {
     return this.http.get<any>(this.HCMasterURL + '/Usuarios');
   }
@@ -49,4 +50,10 @@ export class HCMasterApiService {
     }
     )
   }
+
+  //Organizaciones
+  getOrganizaciones(): Observable<any[]> {
+    return this.http.get<any>(this.HCMasterURL + '/Organizaciones');
+  }
+
 }
