@@ -1,0 +1,29 @@
+{
+    "data": [
+        {
+            "id": 1,
+            "name": "prueba",
+            "address": "prueba",
+            "email": "prueba",
+            "phone": "96854212",
+            "description": "prueba"
+        }, 
+        {
+            "id": 2,
+            "name": "prueba2",
+            "address": "prueba2",
+            "email": "prueba2",
+            "phone": "96854212",
+            "description": "prueba2"
+        },
+        {
+            "id": 3,
+            "name": "prueba",
+            "address": "prueba3",
+            "email": "prueba3",
+            "phone": "96854212",
+            "description": "prueba3"
+        }
+
+    ]
+}

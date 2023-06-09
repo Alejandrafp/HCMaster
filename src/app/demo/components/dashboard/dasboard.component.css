@@ -1,0 +1,11 @@
+.background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('../../../../assets/img/FondoHNconecta.jpg');
+    background-size: cover;
+    filter: blur(8px);
+    z-index: -1;
+}
