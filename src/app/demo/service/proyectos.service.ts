@@ -21,18 +21,17 @@ export class ProyectosService {
   }
 
   addProyectos(proyecto: Proyectos): Observable<any[]> {
-    const { title, description, location, category, startDate, endDate, budget, organizationID, organization } = proyecto;
+    const { title, location, category, startDate, endDate, budget, organizationID, organizationName } = proyecto;
 
     return this.http.post<any>(this.HCMasterURL + `/Proyectos`, {
       "titulo": title,
-      "descripcion": description,
+      // "descripcion": description,
       "ubicacion": location,
       "categoria": category,
       "fechaInicio": startDate,
       "fechaFinalizacion": endDate,
       "presupuesto": budget,
       "organizacionId": organizationID,
-      "organizacion": organization,
       "donaciones": [],
       "informesAnalisis": []
     }
@@ -40,19 +39,18 @@ export class ProyectosService {
   }
 
   editProyectos(proyecto: Proyectos): Observable<any[]> {
-    const { id, title, description, location, category, startDate, endDate, budget, organizationID, organization } = proyecto;
+    const { id, title, location, category, startDate, endDate, budget, organizationID, organizationName } = proyecto;
 
     return this.http.put<any>(this.HCMasterURL + `/Proyectos/${id}`, {
       "id":id,
       "titulo": title,
-      "descripcion": description,
+      // "descripcion": description,
       "ubicacion": location,
       "categoria": category,
       "fechaInicio": startDate,
       "fechaFinalizacion": endDate,
       "presupuesto": budget,
       "organizacionId": organizationID,
-      "organizacion": organization,
       "donaciones": [],
       "informesAnalisis": []
     }

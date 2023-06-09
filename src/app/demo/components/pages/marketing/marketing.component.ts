@@ -10,7 +10,7 @@ import { MarketingService } from 'src/app/demo/service/marketing.service';
   providers: [MessageService]
 })
 export class MarketingComponent implements OnInit {
-  marketingDialog: boolean = false;
+    marketingDialog: boolean = false;
 
     deleteMarketingDialog: boolean = false;
 

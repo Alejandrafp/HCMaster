@@ -10,6 +10,9 @@ import { RouterModule } from '@angular/router';
         { path: 'marketing', loadChildren: () => import('./marketing/marketing.module').then(m => m.MarketingModule) },
         { path: 'clientes', loadChildren: () => import('./clientes/clientes.module').then(m => m.ClientesModule) },
         { path: 'competencias', loadChildren: () => import('./competencias/competencias.module').then(m => m.CompetenciasModule) },
+        { path: 'donaciones', loadChildren: () => import('./donaciones/donaciones.module').then(m => m.DonacionesModule) },
+        { path: 'encuestas', loadChildren: () => import('./encuestas/encuestas.module').then(m => m.EncuestasModule) },
+        { path: 'tendencias', loadChildren: () => import('./tendencias/tendencias.module').then(m => m.TendenciasModule) },
         { path: '**', redirectTo: '/notfound' }
     ])],
     exports: [RouterModule]

@@ -13,12 +13,10 @@ import { EventService } from './demo/service/event.service';
 import { IconService } from './demo/service/icon.service';
 import { NodeService } from './demo/service/node.service';
 import { PhotoService } from './demo/service/photo.service';
-import { DonacionesComponent } from './donaciones/donaciones.component';
 
 @NgModule({
     declarations: [
-        AppComponent,
-        DonacionesComponent
+        AppComponent
     ],
     imports: [
         AppRoutingModule,

@@ -4,7 +4,6 @@ import { Table } from 'primeng/table/table';
 import { Proyectos } from 'src/app/demo/api/proyectos';
 import { ProyectosService } from 'src/app/demo/service/proyectos.service';
 
-
 @Component({
   templateUrl: './proyectos.component.html',
   providers: [MessageService]
@@ -41,14 +40,14 @@ export class ProyectosComponent implements OnInit {
                 return {
                     id: item.id,
                     title: item.titulo,
-                    description: item.descripcion,
                     location: item.ubicacion,
                     category: item.categoria,
                     startDate: item.fechaInicio,
                     endDate: item.fechaFinalizacion,
                     budget: item.presupuesto,
                     organizationID: item.organizacionId,
-                    organization: item.organizacion
+                    organization: item.organizacion,
+                    organizationName: item.organizacionNombre
                 }
             });
         })
@@ -105,6 +104,7 @@ export class ProyectosComponent implements OnInit {
 
             if (this.proyecto.id) {
                 this.api.editProyectos(this.proyecto).subscribe((data) => {
+                    // console.log(data, 'áquii');
                     const index = this.proyectos.findIndex((user) => (user.id === this.proyecto.id));
                     this.proyectos[index] = this.proyecto;
                     this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Organización actualizado', life: 3000 });
