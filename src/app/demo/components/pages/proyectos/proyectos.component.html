@@ -39,6 +39,7 @@
                         <th pSortableColumn="endDate">Fecha Final</th>
                         <th pSortableColumn="budget">Presupuesto</th>
                         <th pSortableColumn="organizationID">Id organización</th>
+                        <th pSortableColumn="organizationName">Nombre de la organización</th>
                         <!-- <th>Image</th> -->
                         <!-- <th pSortableColumn="price">Price <p-sortIcon field="price"></p-sortIcon></th> -->
                         <!-- <th pSortableColumn="category">Category <p-sortIcon field="category"></p-sortIcon></th> -->
@@ -82,6 +83,10 @@
                         <td style="width:14%; min-width:13rem;">
                             <span class="p-column-title">Id Organización</span>
                             {{proyectos.organizationID}}
+                        </td>
+                        <td style="width:14%; min-width:13rem;">
+                            <span class="p-column-title">Nombre de la organización</span>
+                            {{proyectos.organizationName}}
                         </td>
                         
                         <!-- <td style="width:14%; min-width:10rem;"><span class="p-column-title">Image</span>
@@ -131,11 +136,6 @@
                     <small class="ng-dirty ng-invalid" *ngIf="submitted && !proyecto.title">Name is required.</small>
                 </div>
                 <div class="field">
-                    <label for="description">Descripcion</label>
-                    <input type="text" pInputText id="description" [(ngModel)]="proyecto.description" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !proyecto.description}"/>
-                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !proyecto.description">Description es requerida</small>
-                </div>
-                <div class="field">
                     <label for="location">Ubicación</label>
                     <input type="text" pInputText id="location" [(ngModel)]="proyecto.location" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !proyecto.location}"/>
                     <small class="ng-dirty ng-invalid" *ngIf="submitted && !proyecto.location">La ubicación es requerida</small>
@@ -147,12 +147,12 @@
                 </div>
                 <div class="field">
                     <label for="startDate">Fecha Inicio</label>
-                    <input type="text" pInputText id="startDate" [(ngModel)]="proyecto.startDate" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !proyecto.startDate}"/>
+                    <input type="Date" pInputText id="startDate" [(ngModel)]="proyecto.startDate" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !proyecto.startDate}"/>
                     <small class="ng-dirty ng-invalid" *ngIf="submitted && !proyecto.startDate">startDate is required.</small>
                 </div>
                 <div class="field">
                     <label for="endDate">Fecha Inicio</label>
-                    <input type="text" pInputText id="endDate" [(ngModel)]="proyecto.endDate" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !proyecto.endDate}"/>
+                    <input type="Date" pInputText id="endDate" [(ngModel)]="proyecto.endDate" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !proyecto.endDate}"/>
                     <small class="ng-dirty ng-invalid" *ngIf="submitted && !proyecto.endDate">endDate is required.</small>
                 </div>
                 <div class="field">

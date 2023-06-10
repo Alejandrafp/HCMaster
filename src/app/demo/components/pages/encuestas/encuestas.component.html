@@ -8,8 +8,8 @@
                         <button pButton pRipple label="Agregar" icon="pi pi-plus" class="p-button-success mr-2"
                             (click)="openNew()"></button>
                         <button pButton pRipple label="Eliminar" icon="pi pi-trash" class="p-button-danger"
-                            (click)="deleteSelectedDonaciones()"
-                            [disabled]="!selectedDonaciones || !selectedDonaciones.length"></button>
+                            (click)="deleteSelectedEncuestas()"
+                            [disabled]="!selectedEncuestas || !selectedEncuestas.length"></button>
                     </div>
                 </ng-template>
 
@@ -21,13 +21,13 @@
                 </ng-template> -->
             </p-toolbar>
 
-            <p-table #dt [value]="donaciones" [columns]="cols" responsiveLayout="scroll" [rows]="10"
+            <p-table #dt [value]="encuestas" [columns]="cols" responsiveLayout="scroll" [rows]="10"
                 [globalFilterFields]="['name','country.name','representative.name','lastname']" [paginator]="true"
                 [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Paginación"
-                [(selection)]="selectedDonaciones" selectionMode="multiple" [rowHover]="true" dataKey="id">
+                [(selection)]="selectedEncuestas" selectionMode="multiple" [rowHover]="true" dataKey="id">
                 <ng-template pTemplate="caption">
                     <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
-                        <h5 class="m-0">Donaciones</h5>
+                        <h5 class="m-0">Encuestas</h5>
                         <span class="block mt-2 md:mt-0 p-input-icon-left">
                             <i class="pi pi-search"></i>
                             <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Buscar..."
@@ -40,11 +40,11 @@
                         <th style="width: 3rem">
                             <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                         </th>
-                        <!-- <th pSortableColumn="code">Code <p-sortIcon field="code"></p-sortIcon></th> -->
-                        <th pSortableColumn="nameDonor">Nombre del donante <p-sortIcon field="nameDonor"></p-sortIcon></th>
-                        <th pSortableColumn="quantityDonnor">Cantidad donada</th>
+                        <th pSortableColumn="customerId">Cliente <p-sortIcon field="customerId"></p-sortIcon></th>
+                        <th pSortableColumn="opinion">Opinión</th>
+                        <th pSortableColumn="suggestions">Sugerencia</th>
+                        <th pSortableColumn="complaints">Queja</th>
                         <th pSortableColumn="date">Fecha</th>
-                        <th pSortableColumn="projectId">Proyecto</th>
                         <!-- <th>Image</th> -->
                         <!-- <th pSortableColumn="price">Price <p-sortIcon field="price"></p-sortIcon></th> -->
                         <!-- <th pSortableColumn="category">Category <p-sortIcon field="category"></p-sortIcon></th> -->
@@ -53,84 +53,94 @@
                         <th></th>
                     </tr>
                 </ng-template>
-                <ng-template pTemplate="body" let-donacione>
+                <ng-template pTemplate="body" let-encuesta>
                     <tr>
                         <td>
-                            <p-tableCheckbox [value]="donacione"></p-tableCheckbox>
+                            <p-tableCheckbox [value]="encuesta"></p-tableCheckbox>
                         </td>
                         <!-- <td style="width:14%; min-width:10rem;"><span class="p-column-title">Code</span>
                             {{product.code || product.id}}
                         </td> -->
                         <td style="width:30%; min-width:10rem;">
-                            <span class="p-column-title">Nombre del donante</span>
-                            {{donacione.nameDonor}}
+                            <span class="p-column-title">Cliente</span>
+                            {{encuesta.customerId}}
                         </td>
                         <td style="width:30%; min-width:10rem;">
-                            <span class="p-column-title">Cantidad donada</span>
-                            {{donacione.quantityDonnor}}
+                            <span class="p-column-title">Opinión</span>
+                            {{encuesta.opinion}}
+                        </td>
+                        <td style="width:30%; min-width:10rem;">
+                            <span class="p-column-title">Sugerencia</span>
+                            {{encuesta.suggestions}}
+                        </td>
+                        <td style="width:30%; min-width:10rem;">
+                            <span class="p-column-title">Queja</span>
+                            {{encuesta.complaints}}
                         </td>
                         <td style="width:30%; min-width:10rem;">
                             <span class="p-column-title">Fecha</span>
-                            {{donacione.date}}
-                        </td>
-                        <td style="width:30%; min-width:10rem;">
-                            <span class="p-column-title">Proyecto</span>
-                            {{donacione.projectId}}
+                            {{encuesta.date}}
                         </td>
                         <td>
                             <div class="flex">
                                 <button pButton pRipple icon="pi pi-pencil"
                                     class="p-button-rounded p-button-success mr-2"
-                                    (click)="editDonaciones(donacione)"></button>
+                                    (click)="editEncuestas(encuesta)"></button>
                                 <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
-                                    (click)="deleteDonaciones(donacione)"></button>
+                                    (click)="deleteEncuestas(encuesta)"></button>
                             </div>
                         </td>
                     </tr>
 
-                    <p-dialog [(visible)]="deleteDonacionesDialog" header="Confirm" [modal]="true"
+                    <p-dialog [(visible)]="deleteEncuestaDialog" header="Confirm" [modal]="true"
                         [style]="{width:'450px'}">
                         <div class="flex align-items-center justify-content-center">
                             <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
-                            <span *ngIf="donacione">¿Estás seguro de que quieres borrar? <b>{{donacione.nameDonor}}</b></span>
+                            <span *ngIf="encuesta">¿Estás seguro de que quieres borrar? <b>{{encuesta.opinion}}</b></span>
                         </div>
                         <ng-template pTemplate="footer">
                             <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No"
-                                (click)="deleteDonacionesDialog = false"></button>
+                                (click)="deleteEncuestaDialog = false"></button>
                             <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes"
-                                (click)="confirmDelete(donacione)"></button>
+                                (click)="confirmDelete(encuesta)"></button>
                         </ng-template>
                     </p-dialog>
                 </ng-template>
             </p-table>
         </div>
 
-        <p-dialog [(visible)]="donacionesDialog" [style]="{width: '450px'}" header="Información" [modal]="true"
+        <p-dialog [(visible)]="encuestaDialog" [style]="{width: '450px'}" header="Información" [modal]="true"
             class="p-fluid">
             <ng-template pTemplate="content">
                 <div class="field">
-                    <label for="nameDonor">Nombre del donante</label>
-                    <input type="text" pInputText id="nameDonor" [(ngModel)]="donacione.nameDonor" required autofocus
-                        [ngClass]="{'ng-invalid ng-dirty' : submitted && !donacione.nameDonor}" />
-                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !donacione.nameDonor">nameDonor is required.</small>
+                    <label for="customerId">Cliente</label>
+                    <input type="text" pInputText id="customerId" [(ngModel)]="encuesta.customerId" required autofocus
+                        [ngClass]="{'ng-invalid ng-dirty' : submitted && !encuesta.customerId}" />
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !encuesta.customerId">customerId is required.</small>
                 </div>
                 <div class="field">
-                    <label for="quantityDonnor">Cantidad donada</label>
-                    <input type="text" pInputText id="quantityDonnor" [(ngModel)]="donacione.quantityDonnor" required autofocus
-                        [ngClass]="{'ng-invalid ng-dirty' : submitted && !donacione.quantityDonnor}" />
-                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !donacione.quantityDonnor">quantityDonnor is required.</small>
+                    <label for="opinion">Opinión</label>
+                    <input type="text" pInputText id="opinion" [(ngModel)]="encuesta.opinion" required autofocus
+                        [ngClass]="{'ng-invalid ng-dirty' : submitted && !encuesta.opinion}" />
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !encuesta.opinion">Canal is required.</small>
+                </div>
+                <div class="field">
+                    <label for="suggestions">Sugerencia</label>
+                    <input type="text" pInputText id="suggestions" [(ngModel)]="encuesta.suggestions" required autofocus
+                        [ngClass]="{'ng-invalid ng-dirty' : submitted && !encuesta.suggestions}" />
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !encuesta.suggestions">suggestions is required.</small>
+                </div>
+                <div class="field">
+                    <label for="complaints">Quejas</label>
+                    <input type="text" pInputText id="complaints" [(ngModel)]="encuesta.complaints" required autofocus
+                        [ngClass]="{'ng-invalid ng-dirty' : submitted && !encuesta.complaints}" />
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !encuesta.complaints">Canal is required.</small>
                 </div>
                 <div class="field">
                     <label for="date">Fecha</label>
-                    <input type="date" pInputText id="date" [(ngModel)]="donacione.date" required autofocus
-                        [ngClass]="{'ng-invalid ng-dirty' : submitted && !donacione.date}" />
-                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !donacione.date">Canal is required.</small>
-                </div>
-                <div class="field">
-                    <label for="projectId">Proyecto</label>
-                    <input type="text" pInputText id="projectId" [(ngModel)]="donacione.projectId" required autofocus
-                        [ngClass]="{'ng-invalid ng-dirty' : submitted && !donacione.projectId}" />
-                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !donacione.projectId">Canal is required.</small>
+                    <input type="date" pInputText id="date" [(ngModel)]="encuesta.date" required autofocus
+                        [ngClass]="{'ng-invalid ng-dirty' : submitted && !encuesta.date}" />
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !encuesta.date">Canal is required.</small>
                 </div>
             </ng-template>
 
@@ -138,20 +148,20 @@
                 <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text"
                     (click)="hideDialog()"></button>
                 <button pButton pRipple label="Guardar" icon="pi pi-check" class="p-button-text"
-                    (click)="saveDonaciones()"></button>
+                    (click)="saveMarketing()"></button>
             </ng-template>
         </p-dialog>
 
 
 
-        <p-dialog [(visible)]="deleteDonacionesDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">
+        <p-dialog [(visible)]="deleteEncuestasDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">
             <div class="flex align-items-center justify-content-center">
                 <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
                 <span>¿Está seguro de que desea eliminar los productos seleccionados?</span>
             </div>
             <ng-template pTemplate="footer">
                 <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No"
-                    (click)="deleteDonacionesDialog = false"></button>
+                    (click)="deleteEncuestasDialog = false"></button>
                 <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes"
                     (click)="confirmDeleteSelected()"></button>
             </ng-template>

@@ -8,8 +8,8 @@
                         <button pButton pRipple label="Agregar" icon="pi pi-plus" class="p-button-success mr-2"
                             (click)="openNew()"></button>
                         <button pButton pRipple label="Eliminar" icon="pi pi-trash" class="p-button-danger"
-                            (click)="deleteSelectedDonaciones()"
-                            [disabled]="!selectedDonaciones || !selectedDonaciones.length"></button>
+                            (click)="deleteSelectedTendencias()"
+                            [disabled]="!selectedTendencias || !selectedTendencias.length"></button>
                     </div>
                 </ng-template>
 
@@ -21,13 +21,13 @@
                 </ng-template> -->
             </p-toolbar>
 
-            <p-table #dt [value]="donaciones" [columns]="cols" responsiveLayout="scroll" [rows]="10"
+            <p-table #dt [value]="tendencias" [columns]="cols" responsiveLayout="scroll" [rows]="10"
                 [globalFilterFields]="['name','country.name','representative.name','lastname']" [paginator]="true"
                 [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Paginación"
-                [(selection)]="selectedDonaciones" selectionMode="multiple" [rowHover]="true" dataKey="id">
+                [(selection)]="selectedTendencias" selectionMode="multiple" [rowHover]="true" dataKey="id">
                 <ng-template pTemplate="caption">
                     <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
-                        <h5 class="m-0">Donaciones</h5>
+                        <h5 class="m-0">Tendencias</h5>
                         <span class="block mt-2 md:mt-0 p-input-icon-left">
                             <i class="pi pi-search"></i>
                             <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Buscar..."
@@ -41,10 +41,11 @@
                             <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                         </th>
                         <!-- <th pSortableColumn="code">Code <p-sortIcon field="code"></p-sortIcon></th> -->
-                        <th pSortableColumn="nameDonor">Nombre del donante <p-sortIcon field="nameDonor"></p-sortIcon></th>
-                        <th pSortableColumn="quantityDonnor">Cantidad donada</th>
-                        <th pSortableColumn="date">Fecha</th>
-                        <th pSortableColumn="projectId">Proyecto</th>
+                        <th pSortableColumn="marketsize">Tamaño de mercado<p-sortIcon field="name"></p-sortIcon></th>
+                        <th pSortableColumn="growth">Crecimiento de mercado</th>
+                        <th pSortableColumn="opportunities">Oportunidades de crecimiento</th>
+                        <th pSortableColumn="threats">Amenazas</th>
+                        <th pSortableColumn="competitionId">Competencia</th>
                         <!-- <th>Image</th> -->
                         <!-- <th pSortableColumn="price">Price <p-sortIcon field="price"></p-sortIcon></th> -->
                         <!-- <th pSortableColumn="category">Category <p-sortIcon field="category"></p-sortIcon></th> -->
@@ -53,84 +54,94 @@
                         <th></th>
                     </tr>
                 </ng-template>
-                <ng-template pTemplate="body" let-donacione>
+                <ng-template pTemplate="body" let-tendencias>
                     <tr>
                         <td>
-                            <p-tableCheckbox [value]="donacione"></p-tableCheckbox>
+                            <p-tableCheckbox [value]="tendencias"></p-tableCheckbox>
                         </td>
                         <!-- <td style="width:14%; min-width:10rem;"><span class="p-column-title">Code</span>
                             {{product.code || product.id}}
                         </td> -->
                         <td style="width:30%; min-width:10rem;">
-                            <span class="p-column-title">Nombre del donante</span>
-                            {{donacione.nameDonor}}
+                            <span class="p-column-title">Tamaño de mercado</span>
+                            {{tendencias.marketsize}}
                         </td>
                         <td style="width:30%; min-width:10rem;">
-                            <span class="p-column-title">Cantidad donada</span>
-                            {{donacione.quantityDonnor}}
+                            <span class="p-column-title">Crecimiento de mercado</span>
+                            {{tendencias.growth}}
                         </td>
                         <td style="width:30%; min-width:10rem;">
-                            <span class="p-column-title">Fecha</span>
-                            {{donacione.date}}
+                            <span class="p-column-title">Oportunidades de crecimiento</span>
+                            {{tendencias.opportunities}}
+                        </td>
+                        <td style="width:50%; min-width:10rem;">
+                            <span class="p-column-title">Amenazas</span>
+                            {{tendencias.threats}}
                         </td>
                         <td style="width:30%; min-width:10rem;">
-                            <span class="p-column-title">Proyecto</span>
-                            {{donacione.projectId}}
+                            <span class="p-column-title">Competencias</span>
+                            {{tendencias.competitionId}}
                         </td>
                         <td>
                             <div class="flex">
                                 <button pButton pRipple icon="pi pi-pencil"
                                     class="p-button-rounded p-button-success mr-2"
-                                    (click)="editDonaciones(donacione)"></button>
+                                    (click)="editTendencias(tendencias)"></button>
                                 <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
-                                    (click)="deleteDonaciones(donacione)"></button>
+                                    (click)="deleteTendencias(tendencias)"></button>
                             </div>
                         </td>
                     </tr>
 
-                    <p-dialog [(visible)]="deleteDonacionesDialog" header="Confirm" [modal]="true"
+                    <p-dialog [(visible)]="deleteTendenciaDialog" header="Confirm" [modal]="true"
                         [style]="{width:'450px'}">
                         <div class="flex align-items-center justify-content-center">
                             <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
-                            <span *ngIf="donacione">¿Estás seguro de que quieres borrar? <b>{{donacione.nameDonor}}</b></span>
+                            <span *ngIf="tendencias">¿Estás seguro de que quieres borrar? <b>{{tendencias.marketsize}}</b></span>
                         </div>
                         <ng-template pTemplate="footer">
                             <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No"
-                                (click)="deleteDonacionesDialog = false"></button>
+                                (click)="deleteTendenciaDialog = false"></button>
                             <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes"
-                                (click)="confirmDelete(donacione)"></button>
+                                (click)="confirmDelete(tendencias)"></button>
                         </ng-template>
                     </p-dialog>
                 </ng-template>
             </p-table>
         </div>
 
-        <p-dialog [(visible)]="donacionesDialog" [style]="{width: '450px'}" header="Información" [modal]="true"
+        <p-dialog [(visible)]="tendenciasDialog" [style]="{width: '450px'}" header="Información" [modal]="true"
             class="p-fluid">
             <ng-template pTemplate="content">
                 <div class="field">
-                    <label for="nameDonor">Nombre del donante</label>
-                    <input type="text" pInputText id="nameDonor" [(ngModel)]="donacione.nameDonor" required autofocus
-                        [ngClass]="{'ng-invalid ng-dirty' : submitted && !donacione.nameDonor}" />
-                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !donacione.nameDonor">nameDonor is required.</small>
+                    <label for="marketsize">Tamaño de mercado</label>
+                    <input type="text" pInputText id="marketsize" [(ngModel)]="tendencia.marketsize" required autofocus
+                        [ngClass]="{'ng-invalid ng-dirty' : submitted && !tendencia.marketsize}" />
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !tendencia.marketsize">Canal is required.</small>
                 </div>
                 <div class="field">
-                    <label for="quantityDonnor">Cantidad donada</label>
-                    <input type="text" pInputText id="quantityDonnor" [(ngModel)]="donacione.quantityDonnor" required autofocus
-                        [ngClass]="{'ng-invalid ng-dirty' : submitted && !donacione.quantityDonnor}" />
-                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !donacione.quantityDonnor">quantityDonnor is required.</small>
+                    <label for="growth">Crecimiento de mercado</label>
+                    <input type="text" pInputText id="growth" [(ngModel)]="tendencia.growth" required autofocus
+                        [ngClass]="{'ng-invalid ng-dirty' : submitted && !tendencia.growth}" />
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !tendencia.growth">Canal is required.</small>
                 </div>
                 <div class="field">
-                    <label for="date">Fecha</label>
-                    <input type="date" pInputText id="date" [(ngModel)]="donacione.date" required autofocus
-                        [ngClass]="{'ng-invalid ng-dirty' : submitted && !donacione.date}" />
-                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !donacione.date">Canal is required.</small>
+                    <label for="opportunities">Oportunidades de crecimiento</label>
+                    <input type="text" pInputText id="opportunities" [(ngModel)]="tendencia.opportunities" required autofocus
+                        [ngClass]="{'ng-invalid ng-dirty' : submitted && !tendencia.opportunities}" />
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !tendencia.opportunities">Canal is required.</small>
                 </div>
                 <div class="field">
-                    <label for="projectId">Proyecto</label>
-                    <input type="text" pInputText id="projectId" [(ngModel)]="donacione.projectId" required autofocus
-                        [ngClass]="{'ng-invalid ng-dirty' : submitted && !donacione.projectId}" />
-                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !donacione.projectId">Canal is required.</small>
+                    <label for="threats">Amenazas</label>
+                    <input type="text" pInputText id="name" [(ngModel)]="tendencia.threats" required autofocus
+                        [ngClass]="{'ng-invalid ng-dirty' : submitted && !tendencia.threats}" />
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !tendencia.threats">Canal is required.</small>
+                </div>
+                <div class="field">
+                    <label for="competitionId">Competencias</label>
+                    <input type="text" pInputText id="competitionId" [(ngModel)]="tendencia.competitionId" required autofocus
+                        [ngClass]="{'ng-invalid ng-dirty' : submitted && !tendencia.competitionId}" />
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !tendencia.competitionId">Canal is required.</small>
                 </div>
             </ng-template>
 
@@ -138,20 +149,20 @@
                 <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text"
                     (click)="hideDialog()"></button>
                 <button pButton pRipple label="Guardar" icon="pi pi-check" class="p-button-text"
-                    (click)="saveDonaciones()"></button>
+                    (click)="saveTendencias()"></button>
             </ng-template>
         </p-dialog>
 
 
 
-        <p-dialog [(visible)]="deleteDonacionesDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">
+        <p-dialog [(visible)]="deleteTendenciasDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">
             <div class="flex align-items-center justify-content-center">
                 <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
                 <span>¿Está seguro de que desea eliminar los productos seleccionados?</span>
             </div>
             <ng-template pTemplate="footer">
                 <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No"
-                    (click)="deleteDonacionesDialog = false"></button>
+                    (click)="deleteTendenciasDialog = false"></button>
                 <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes"
                     (click)="confirmDeleteSelected()"></button>
             </ng-template>
