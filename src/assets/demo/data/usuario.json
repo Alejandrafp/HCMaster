@@ -1,0 +1,28 @@
+{
+    "data": [
+        {
+            "id": 1,
+            "name": "prueba",
+            "email": "prueba",
+            "charge": "prueba",
+            "status": "96854212",
+            "position": "prueba"
+        }, 
+        {
+            "id": 2,
+            "name": "prueba2",
+            "email": "prueba2",
+            "charge": "prueba2",
+            "status": "prueba2",
+            "position": "prueba2"
+        },
+        {  
+            "id": 3,
+            "name": "prueba3",
+            "email": "prueba3",
+            "charge": "prueba3",
+            "status": "prueba3",
+            "position": "prueba3"
+        }
+    ]
+}
