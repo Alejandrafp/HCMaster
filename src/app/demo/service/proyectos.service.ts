@@ -20,7 +20,7 @@ export class ProyectosService {
     return this.http.delete<any>(this.HCMasterURL + `/Proyectos/${id}`);
   }
 
-  addProyectos(proyecto: Proyectos): Observable<any[]> {
+  addProyectos(proyecto: Proyectos): Observable<any> {
     const { title, location, category, startDate, endDate, budget, organizationID, organizationName } = proyecto;
 
     return this.http.post<any>(this.HCMasterURL + `/Proyectos`, {
@@ -38,7 +38,7 @@ export class ProyectosService {
     )
   }
 
-  editProyectos(proyecto: Proyectos): Observable<any[]> {
+  editProyectos(proyecto: Proyectos): Observable<any> {
     const { id, title, location, category, startDate, endDate, budget, organizationID, organizationName } = proyecto;
 
     return this.http.put<any>(this.HCMasterURL + `/Proyectos/${id}`, {

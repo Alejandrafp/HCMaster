@@ -110,7 +110,7 @@ export class OrganizacionComponent implements OnInit {
                 })
             } else {
                 this.api.addOrganizaciones(this.organizacion).subscribe((data) => {
-                    this.organizaciones.push(this.organizacion);
+                    this.organizaciones.push({ ...this.organizacion, id: data.id });
                     this.messageService.add({ severity: 'success', summary: 'Creado con Éxito', detail: 'Organización creada', life: 3000 });
 
 

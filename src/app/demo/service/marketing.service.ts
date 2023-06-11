@@ -19,7 +19,7 @@ export class MarketingService {
     return this.http.delete<any>(this.HCMasterURL + `/CanalesMarketings/${id}`);
   }
 
-  addMarketing(marketing: Marketing): Observable<any[]> {
+  addMarketing(marketing: Marketing): Observable<any> {
     const { channel } = marketing;
 
     return this.http.post<any>(this.HCMasterURL + `/CanalesMarketings`, {
@@ -29,7 +29,7 @@ export class MarketingService {
     )
   }
 
-  editMarketing(marketing: Marketing): Observable<any[]> {
+  editMarketing(marketing: Marketing): Observable<any> {
     const { id, channel } = marketing;
 
     return this.http.put<any>(this.HCMasterURL + `/CanalesMarketings/${id}`, {

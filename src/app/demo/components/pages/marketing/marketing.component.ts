@@ -108,7 +108,9 @@ export class MarketingComponent implements OnInit {
               })
           } else {
               this.api.addMarketing(this.marketing).subscribe((data) => {
-                  this.marketings.push(this.marketing);
+                  this.marketings.push({ 
+                    ...this.marketing, 
+                    id: data.id });
                   this.messageService.add({ severity: 'success', summary: 'Creado con Éxito', detail: 'Organización creada', life: 3000 });
 
 

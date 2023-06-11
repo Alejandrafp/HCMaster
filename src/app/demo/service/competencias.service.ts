@@ -19,7 +19,7 @@ export class CompetenciasService {
     return this.http.delete<any>(this.HCMasterURL + `/Competencias/${id}`);
   }
 
-  addCompetencias(competencias: Competencias): Observable<any[]> {
+  addCompetencias(competencias: Competencias): Observable<any> {
     const { name, product, strategies, analysisPrices, chanelId, channelMarketing} = competencias;
 
     return this.http.post<any>(this.HCMasterURL + `/Competencias`, {
@@ -34,7 +34,7 @@ export class CompetenciasService {
     )
   }
 
-  editCompetencias(competencias: Competencias): Observable<any[]> {
+  editCompetencias(competencias: Competencias): Observable<any> {
     const { id, name, product, strategies, analysisPrices, chanelId, channelMarketing} = competencias;
 
     return this.http.put<any>(this.HCMasterURL + `/Competencias/${id}`, {

@@ -112,7 +112,7 @@ export class CompetenciasComponent implements OnInit {
               })
           } else {
               this.api.addCompetencias(this.competencia).subscribe((data) => {
-                  this.competencias.push(this.competencia);
+                  this.competencias.push({ ...this.competencia, id: data.id });
                   this.messageService.add({ severity: 'success', summary: 'Creado con Éxito', detail: 'Organización creada', life: 3000 });
 
 

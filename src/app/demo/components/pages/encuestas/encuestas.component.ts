@@ -112,7 +112,7 @@ export class EncuestasComponent {
               })
           } else {
               this.api.addEncuestas(this.encuesta).subscribe((data) => {
-                  this.encuestas.push(this.encuesta);
+                  this.encuestas.push({ ...this.encuesta, id: data.id });
                   this.messageService.add({ severity: 'success', summary: 'Creado con Éxito', detail: 'Organización creada', life: 3000 });
 
 

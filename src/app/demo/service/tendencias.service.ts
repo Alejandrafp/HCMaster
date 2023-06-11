@@ -20,7 +20,7 @@ export class TendenciasService {
     return this.http.delete<any>(this.HCMasterURL + `/TendenciasMercados/${id}`);
   }
 
-  addTendencias(tendencias: Tendencias): Observable<any[]> {
+  addTendencias(tendencias: Tendencias): Observable<any> {
     const { marketsize, growth, opportunities, threats, competitionId } = tendencias;
 
     return this.http.post<any>(this.HCMasterURL + `/TendenciasMercados`, {
@@ -33,7 +33,7 @@ export class TendenciasService {
     )
   }
 
-  editTendencias(tendencias: Tendencias): Observable<any[]> {
+  editTendencias(tendencias: Tendencias): Observable<any> {
     const { id, marketsize, growth, opportunities, threats, competitionId } = tendencias;
 
     return this.http.put<any>(this.HCMasterURL + `/TendenciasMercados/${id}`, {

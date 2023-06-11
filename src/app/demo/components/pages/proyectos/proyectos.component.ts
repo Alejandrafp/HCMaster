@@ -115,7 +115,8 @@ export class ProyectosComponent implements OnInit {
                 })
             } else {
                 this.api.addProyectos(this.proyecto).subscribe((data) => {
-                    this.proyectos.push(this.proyecto);
+                    this.proyectos.push({ 
+                        ...this.proyecto, id: data.id });
                     this.messageService.add({ severity: 'success', summary: 'Creado con Éxito', detail: 'Organización creada', life: 3000 });
 
 
