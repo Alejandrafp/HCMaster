@@ -118,7 +118,10 @@ export class UsuarioComponent implements OnInit {
                 })
             } else {
                 this.api.addUsuario(this.usuario).subscribe((data) => {
-                    this.usuarios.push(this.usuario);
+                    this.usuarios.push({ 
+                        ...this.usuario,
+                          id: data.id
+                        });
                     this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Usuario Created', life: 3000 });
 
                     this.usuarios = [...this.usuarios];

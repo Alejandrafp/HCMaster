@@ -19,7 +19,7 @@ export class EncuestasService {
     return this.http.delete<any>(this.HCMasterURL + `/EncuestasComentariosClientes/${id}`);
   }
 
-  addEncuestas(encuestas: Encuestas): Observable<any[]> {
+  addEncuestas(encuestas: Encuestas): Observable<any> {
     const { customerId, opinion, suggestions, complaints, date  } = encuestas;
 
     return this.http.post<any>(this.HCMasterURL + `/EncuestasComentariosClientes`, {
@@ -32,7 +32,7 @@ export class EncuestasService {
     )
   }
 
-  editEncuestas(encuestas: Encuestas): Observable<any[]> {
+  editEncuestas(encuestas: Encuestas): Observable<any> {
     const { id, customerId, opinion, suggestions, complaints, date  } = encuestas;
 
     return this.http.put<any>(this.HCMasterURL + `/EncuestasComentariosClientes/${id}`, {

@@ -113,7 +113,7 @@ export class ClientesComponent {
               })
           } else {
               this.api.addClientes(this.cliente).subscribe((data) => {
-                  this.clientes.push(this.cliente);
+                  this.clientes.push({ ...this.cliente, id: data.id });
                   this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Clientes Created', life: 3000 });
 
                   this.clientes = [...this.clientes];

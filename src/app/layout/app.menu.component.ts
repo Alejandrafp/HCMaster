@@ -24,27 +24,22 @@ export class AppMenuComponent implements OnInit {
                 label: 'Herramientas',
                 icon: 'pi pi-fw pi-briefcase',
                 items: [
-                    {
-                        label: 'Auth',
-                        icon: 'pi pi-fw pi-user',
-                        items: [
-                            {
-                                label: 'Login',
-                                icon: 'pi pi-fw pi-sign-in',
-                                routerLink: ['/auth/login']
-                            },
-                            {
-                                label: 'Access Denied',
-                                icon: 'pi pi-fw pi-lock',
-                                routerLink: ['/auth/access']
-                            }
-                        ]
-                    },
-                    {
-                        label: 'Crud',
-                        icon: 'pi pi-fw pi-pencil',
-                        routerLink: ['/pages/crud']
-                    },
+                    // {
+                    //     label: 'Auth',
+                    //     icon: 'pi pi-fw pi-user',
+                    //     // items: [
+                    //     //     {
+                    //     //         label: 'Login',
+                    //     //         icon: 'pi pi-fw pi-sign-in',
+                    //     //         routerLink: ['/auth/login']
+                    //     //     },
+                    //     //     {
+                    //     //         label: 'Access Denied',
+                    //     //         icon: 'pi pi-fw pi-lock',
+                    //     //         routerLink: ['/auth/access']
+                    //     //     }
+                    //     // ]
+                    // },
                     {
                         label: 'Usuario',
                         icon: 'pi pi-user-plus',
@@ -57,22 +52,22 @@ export class AppMenuComponent implements OnInit {
                     },
                     {
                         label: 'Proyectos',
-                        icon: 'pi pi-wrench',
+                        icon: 'pi pi-folder-open',
                         routerLink: ['/pages/proyectos']
                     },
                     {
                         label: 'Marketing',
-                        icon: 'pi pi-wrench',
+                        icon: 'pi pi-chart-bar',
                         routerLink: ['/pages/marketing']
                     },
                     {
                         label: 'Clientes',
-                        icon: 'pi pi-wrench',
+                        icon: 'pi pi-id-card',
                         routerLink: ['/pages/clientes']
                     },
                     {
                         label: 'Competencias',
-                        icon: 'pi pi-wrench',
+                        icon: 'pi pi-chart-line',
                         routerLink: ['/pages/competencias']
                     },
                     {
@@ -82,12 +77,12 @@ export class AppMenuComponent implements OnInit {
                     },
                     {
                         label: 'Encuestas',
-                        icon: 'pi pi-wrench',
+                        icon: 'pi pi-send',
                         routerLink: ['/pages/encuestas']
                     },
                     {
                         label: 'Tendencias',
-                        icon: 'pi pi-wrench',
+                        icon: 'pi pi-sort-alt',
                         routerLink: ['/pages/tendencias']
                     },
                         

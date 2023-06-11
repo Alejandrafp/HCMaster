@@ -20,7 +20,7 @@ export class OrganizacionService {
     return this.http.delete<any>(this.HCMasterURL + `/Organizaciones/${id}`);
   }
 
-  addOrganizaciones(organizaciones: Organizacion): Observable<any[]> {
+  addOrganizaciones(organizaciones: Organizacion): Observable<any> {
     const { name, address, email, phone, description } = organizaciones;
 
     return this.http.post<any>(this.HCMasterURL + `/Organizaciones`, {
@@ -35,7 +35,7 @@ export class OrganizacionService {
     )
   }
 
-  editOrganizacion(organizacion: Organizacion): Observable<any[]> {
+  editOrganizacion(organizacion: Organizacion): Observable<any> {
     const { id, name, address, email, phone, description } = organizacion;
 
     return this.http.put<any>(this.HCMasterURL + `/Organizaciones/${id}`, {

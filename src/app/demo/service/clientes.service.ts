@@ -19,7 +19,7 @@ export class ClientesService {
     return this.http.delete<any>(this.HCMasterURL + `/ClientesPotenciales/${id}`);
   }
 
-  addClientes(clientes: Clientes): Observable<any[]> {
+  addClientes(clientes: Clientes): Observable<any> {
     const { name , age, gender, location, preferences, behavior} = clientes;
 
     return this.http.post<any>(this.HCMasterURL + `/ClientesPotenciales`, {
@@ -34,7 +34,7 @@ export class ClientesService {
     )
   }
 
-  editClientes(clientes: Clientes): Observable<any[]> {
+  editClientes(clientes: Clientes): Observable<any> {
     const { id, name, age, gender, location, preferences, behavior} = clientes;
 
     return this.http.put<any>(this.HCMasterURL + `/ClientesPotenciales/${id}`, {

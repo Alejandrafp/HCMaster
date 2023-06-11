@@ -112,7 +112,10 @@ export class TendenciasComponent {
               })
           } else {
               this.api.addTendencias(this.tendencia).subscribe((data) => {
-                  this.tendencias.push(this.tendencia);
+                  this.tendencias.push({
+                    ...this.tendencias, 
+                    id: data.id
+                 });
                   this.messageService.add({ severity: 'success', summary: 'Creado con Éxito', detail: 'Organización creada', life: 3000 });
 
 

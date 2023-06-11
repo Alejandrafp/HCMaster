@@ -109,7 +109,7 @@ export class DonacionesComponent implements OnInit{
               })
           } else {
               this.api.addDonaciones(this.donacione).subscribe((data) => {
-                  this.donaciones.push(this.donacione);
+                  this.donaciones.push({ ...this.donacione, id: data.id });
                   this.messageService.add({ severity: 'success', summary: 'Creado con Éxito', detail: 'Organización creada', life: 3000 });
 
 

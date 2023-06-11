@@ -19,7 +19,7 @@ export class DonacionesService {
     return this.http.delete<any>(this.HCMasterURL + `/Donaciones/${id}`);
   }
 
-  addDonaciones(donaciones: Donaciones): Observable<any[]> {
+  addDonaciones(donaciones: Donaciones): Observable<any> {
     const { nameDonor, quantityDonnor, date, projectId } = donaciones;
 
     return this.http.post<any>(this.HCMasterURL + `/Donaciones`, {
@@ -31,7 +31,7 @@ export class DonacionesService {
     )
   }
 
-  editDonaciones(donaciones: Donaciones): Observable<any[]> {
+  editDonaciones(donaciones: Donaciones): Observable<any> {
     const { id, nameDonor, quantityDonnor, date, projectId } = donaciones;
 
     return this.http.put<any>(this.HCMasterURL + `/Donaciones/${id}`, {
