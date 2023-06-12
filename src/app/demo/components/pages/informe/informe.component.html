@@ -1,0 +1,160 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card px-6 py-6">
+            <p-toast></p-toast>
+            <p-toolbar styleClass="mb-4">
+                <ng-template pTemplate="left">
+                    <div class="my-2 text-right">
+                        <button pButton pRipple label="Agregar" icon="pi pi-plus" class="p-button-success mr-2"
+                            (click)="openNew()"></button>
+                        <button pButton pRipple label="Eliminar" icon="pi pi-trash" class="p-button-danger"
+                            (click)="deleteSelectedInformes()"
+                            [disabled]="!selectedInforme || !selectedInforme.length"></button>
+                    </div>
+                </ng-template>
+
+
+
+                <!-- <ng-template pTemplate="left">
+                    <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import" class="mr-2 inline-block"></p-fileUpload>
+                    <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help" (click)="dt.exportCSV()"></button>
+                </ng-template> -->
+            </p-toolbar>
+
+            <p-table #dt [value]="informes" [columns]="cols" responsiveLayout="scroll" [rows]="10"
+                [globalFilterFields]="['name','country.name','representative.name','lastname']" [paginator]="true"
+                [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Paginación"
+                [(selection)]="selectedInforme" selectionMode="multiple" [rowHover]="true" dataKey="id">
+                <ng-template pTemplate="caption">
+                    <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+                        <h5 class="m-0">Informes</h5>
+                        <span class="block mt-2 md:mt-0 p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Buscar..."
+                                class="w-full sm:w-auto" />
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 3rem">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
+                        <!-- <th pSortableColumn="code">Code <p-sortIcon field="code"></p-sortIcon></th> -->
+                        <th pSortableColumn="projectId">Proyecto<p-sortIcon field="projectId"></p-sortIcon></th>
+                        <th pSortableColumn="userId">Usuario</th>
+                        <th pSortableColumn="totalDonations">Donaciones totales</th>
+                        <th pSortableColumn="volunteerHours">Horas Voluntarias</th>
+                        <!-- <th>Image</th> -->
+                        <!-- <th pSortableColumn="price">Price <p-sortIcon field="price"></p-sortIcon></th> -->
+                        <!-- <th pSortableColumn="category">Category <p-sortIcon field="category"></p-sortIcon></th> -->
+                        <!-- <th pSortableColumn="rating">Reviews <p-sortIcon field="rating"></p-sortIcon></th> -->
+                        <!-- <th pSortableColumn="inventorylastname">lastname <p-sortIcon field="inventorylastname"></p-sortIcon></th> -->
+                        <th></th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-informes>
+                    <tr>
+                        <td>
+                            <p-tableCheckbox [value]="informes"></p-tableCheckbox>
+                        </td>
+                        <!-- <td style="width:14%; min-width:10rem;"><span class="p-column-title">Code</span>
+                            {{product.code || product.id}}
+                        </td> -->
+                        <td style="width:30%; min-width:10rem;">
+                            <span class="p-column-title">Proyecto</span>
+                            {{informes.projectId}}
+                        </td>
+                        <td style="width:30%; min-width:10rem;">
+                            <span class="p-column-title">Usuario</span>
+                            {{informes.userId}}
+                        </td>
+                        <td style="width:30%; min-width:10rem;">
+                            <span class="p-column-title">Donaciones totales</span>
+                            {{informes.totalDonations}}
+                        </td>
+                        <td style="width:30%; min-width:10rem;">
+                            <span class="p-column-title">Horas Voluntarias</span>
+                            {{informes.volunteerHours}}
+                        </td>
+                        <td>
+                            <div class="flex">
+                                <button pButton pRipple icon="pi pi-pencil"
+                                    class="p-button-rounded p-button-success mr-2"
+                                    (click)="editInforme(informe)"></button>
+                                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
+                                    (click)="deleteInforme(informe)"></button>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <p-dialog [(visible)]="deleteInformeDialog" header="Confirm" [modal]="true"
+                        [style]="{width:'450px'}">
+                        <div class="flex align-items-center justify-content-center">
+                            <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+                            <span *ngIf="informe">¿Estás seguro de que quieres borrar? <b>{{informe.projectId}}</b></span>
+                        </div>
+                        <ng-template pTemplate="footer">
+                            <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No"
+                                (click)="deleteInformeDialog = false"></button>
+                            <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes"
+                                (click)="confirmDelete(informe)"></button>
+                        </ng-template>
+                    </p-dialog>
+                </ng-template>
+            </p-table>
+        </div>
+
+        <p-dialog [(visible)]="informeDialog" [style]="{width: '450px'}" header="Información" [modal]="true"
+            class="p-fluid">
+            <ng-template pTemplate="content">
+                <div class="field">
+                    <label for="projectId">Proyecto</label>
+                    <input type="text" pInputText id="projectId" [(ngModel)]="informe.projectId" required autofocus
+                        [ngClass]="{'ng-invalid ng-dirty' : submitted && !informe.projectId}" />
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !informe.projectId">Canal is required.</small>
+                </div>
+                <div class="field">
+                    <label for="userId">Usuario</label>
+                    <input type="text" pInputText id="userId" [(ngModel)]="informe.userId" required autofocus
+                        [ngClass]="{'ng-invalid ng-dirty' : submitted && !informe.userId}" />
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !informe.userId">Canal is required.</small>
+                </div>
+                <div class="field">
+                    <label for="totalDonations">Donaciones totales</label>
+                    <input type="text" pInputText id="totalDonations" [(ngModel)]="informe.totalDonations" required autofocus
+                        [ngClass]="{'ng-invalid ng-dirty' : submitted && !informe.totalDonations}" />
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !informe.totalDonations">Canal is required.</small>
+                </div>
+                <div class="field">
+                    <label for="volunteerHours">Usuario</label>
+                    <input type="text" pInputText id="volunteerHours" [(ngModel)]="informe.volunteerHours" required autofocus
+                        [ngClass]="{'ng-invalid ng-dirty' : submitted && !informe.volunteerHours}" />
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !informe.userId">Canal is required.</small>
+                </div>
+            </ng-template>
+
+            <ng-template pTemplate="footer">
+                <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text"
+                    (click)="hideDialog()"></button>
+                <button pButton pRipple label="Guardar" icon="pi pi-check" class="p-button-text"
+                    (click)="saveInformes()"></button>
+            </ng-template>
+        </p-dialog>
+
+
+
+        <p-dialog [(visible)]="deleteInformesDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">
+            <div class="flex align-items-center justify-content-center">
+                <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+                <span>¿Está seguro de que desea eliminar los productos seleccionados?</span>
+            </div>
+            <ng-template pTemplate="footer">
+                <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No"
+                    (click)="deleteInformesDialog = false"></button>
+                <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes"
+                    (click)="confirmDeleteSelected()"></button>
+            </ng-template>
+        </p-dialog>
+    </div>
+</div>

@@ -1,0 +1,171 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card px-6 py-6">
+            <p-toast></p-toast>
+            <p-toolbar styleClass="mb-4">
+                <ng-template pTemplate="left">
+                    <div class="my-2 text-right">
+                        <button pButton pRipple label="Agregar" icon="pi pi-plus" class="p-button-success mr-2"
+                            (click)="openNew()"></button>
+                        <button pButton pRipple label="Eliminar" icon="pi pi-trash" class="p-button-danger"
+                            (click)="deleteSelectedTendencias()"
+                            [disabled]="!selectedTendencias || !selectedTendencias.length"></button>
+                    </div>
+                </ng-template>
+
+
+
+                <!-- <ng-template pTemplate="left">
+                    <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import" class="mr-2 inline-block"></p-fileUpload>
+                    <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help" (click)="dt.exportCSV()"></button>
+                </ng-template> -->
+            </p-toolbar>
+
+            <p-table #dt [value]="tendencias" [columns]="cols" responsiveLayout="scroll" [rows]="10"
+                [globalFilterFields]="['name','country.name','representative.name','lastname']" [paginator]="true"
+                [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Paginación"
+                [(selection)]="selectedTendencias" selectionMode="multiple" [rowHover]="true" dataKey="id">
+                <ng-template pTemplate="caption">
+                    <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+                        <h5 class="m-0">Tendencias</h5>
+                        <span class="block mt-2 md:mt-0 p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Buscar..."
+                                class="w-full sm:w-auto" />
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 3rem">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
+                        <!-- <th pSortableColumn="code">Code <p-sortIcon field="code"></p-sortIcon></th> -->
+                        <th pSortableColumn="marketsize">Tamaño de mercado<p-sortIcon field="name"></p-sortIcon></th>
+                        <th pSortableColumn="growth">Crecimiento de mercado</th>
+                        <th pSortableColumn="opportunities">Oportunidades de crecimiento</th>
+                        <th pSortableColumn="threats">Amenazas</th>
+                        <th pSortableColumn="competitionId">Competencia</th>
+                        <!-- <th>Image</th> -->
+                        <!-- <th pSortableColumn="price">Price <p-sortIcon field="price"></p-sortIcon></th> -->
+                        <!-- <th pSortableColumn="category">Category <p-sortIcon field="category"></p-sortIcon></th> -->
+                        <!-- <th pSortableColumn="rating">Reviews <p-sortIcon field="rating"></p-sortIcon></th> -->
+                        <!-- <th pSortableColumn="inventorylastname">lastname <p-sortIcon field="inventorylastname"></p-sortIcon></th> -->
+                        <th></th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-tendencias>
+                    <tr>
+                        <td>
+                            <p-tableCheckbox [value]="tendencias"></p-tableCheckbox>
+                        </td>
+                        <!-- <td style="width:14%; min-width:10rem;"><span class="p-column-title">Code</span>
+                            {{product.code || product.id}}
+                        </td> -->
+                        <td style="width:30%; min-width:10rem;">
+                            <span class="p-column-title">Tamaño de mercado</span>
+                            {{tendencias.marketsize}}
+                        </td>
+                        <td style="width:30%; min-width:10rem;">
+                            <span class="p-column-title">Crecimiento de mercado</span>
+                            {{tendencias.growth}}
+                        </td>
+                        <td style="width:30%; min-width:10rem;">
+                            <span class="p-column-title">Oportunidades de crecimiento</span>
+                            {{tendencias.opportunities}}
+                        </td>
+                        <td style="width:50%; min-width:10rem;">
+                            <span class="p-column-title">Amenazas</span>
+                            {{tendencias.threats}}
+                        </td>
+                        <td style="width:30%; min-width:10rem;">
+                            <span class="p-column-title">Competencias</span>
+                            {{tendencias.competitionId}}
+                        </td>
+                        <td>
+                            <div class="flex">
+                                <button pButton pRipple icon="pi pi-pencil"
+                                    class="p-button-rounded p-button-success mr-2"
+                                    (click)="editTendencias(tendencias)"></button>
+                                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
+                                    (click)="deleteTendencias(tendencias)"></button>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <p-dialog [(visible)]="deleteTendenciaDialog" header="Confirm" [modal]="true"
+                        [style]="{width:'450px'}">
+                        <div class="flex align-items-center justify-content-center">
+                            <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+                            <span *ngIf="tendencias">¿Estás seguro de que quieres borrar? <b>{{tendencias.marketsize}}</b></span>
+                        </div>
+                        <ng-template pTemplate="footer">
+                            <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No"
+                                (click)="deleteTendenciaDialog = false"></button>
+                            <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes"
+                                (click)="confirmDelete(tendencias)"></button>
+                        </ng-template>
+                    </p-dialog>
+                </ng-template>
+            </p-table>
+        </div>
+
+        <p-dialog [(visible)]="tendenciasDialog" [style]="{width: '450px'}" header="Información" [modal]="true"
+            class="p-fluid">
+            <ng-template pTemplate="content">
+                <div class="field">
+                    <label for="marketsize">Tamaño de mercado</label>
+                    <input type="text" pInputText id="marketsize" [(ngModel)]="tendencia.marketsize" required autofocus
+                        [ngClass]="{'ng-invalid ng-dirty' : submitted && !tendencia.marketsize}" />
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !tendencia.marketsize">Canal is required.</small>
+                </div>
+                <div class="field">
+                    <label for="growth">Crecimiento de mercado</label>
+                    <input type="text" pInputText id="growth" [(ngModel)]="tendencia.growth" required autofocus
+                        [ngClass]="{'ng-invalid ng-dirty' : submitted && !tendencia.growth}" />
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !tendencia.growth">Canal is required.</small>
+                </div>
+                <div class="field">
+                    <label for="opportunities">Oportunidades de crecimiento</label>
+                    <input type="text" pInputText id="opportunities" [(ngModel)]="tendencia.opportunities" required autofocus
+                        [ngClass]="{'ng-invalid ng-dirty' : submitted && !tendencia.opportunities}" />
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !tendencia.opportunities">Canal is required.</small>
+                </div>
+                <div class="field">
+                    <label for="threats">Amenazas</label>
+                    <input type="text" pInputText id="name" [(ngModel)]="tendencia.threats" required autofocus
+                        [ngClass]="{'ng-invalid ng-dirty' : submitted && !tendencia.threats}" />
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !tendencia.threats">Canal is required.</small>
+                </div>
+                <div class="field">
+                    <label for="competitionId">Competencias</label>
+                    <input type="text" pInputText id="competitionId" [(ngModel)]="tendencia.competitionId" required autofocus
+                        [ngClass]="{'ng-invalid ng-dirty' : submitted && !tendencia.competitionId}" />
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !tendencia.competitionId">Canal is required.</small>
+                </div>
+            </ng-template>
+
+            <ng-template pTemplate="footer">
+                <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text"
+                    (click)="hideDialog()"></button>
+                <button pButton pRipple label="Guardar" icon="pi pi-check" class="p-button-text"
+                    (click)="saveTendencias()"></button>
+            </ng-template>
+        </p-dialog>
+
+
+
+        <p-dialog [(visible)]="deleteTendenciasDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">
+            <div class="flex align-items-center justify-content-center">
+                <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+                <span>¿Está seguro de que desea eliminar los productos seleccionados?</span>
+            </div>
+            <ng-template pTemplate="footer">
+                <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No"
+                    (click)="deleteTendenciasDialog = false"></button>
+                <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes"
+                    (click)="confirmDeleteSelected()"></button>
+            </ng-template>
+        </p-dialog>
+    </div>
+</div>

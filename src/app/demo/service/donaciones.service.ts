@@ -11,7 +11,6 @@ export class DonacionesService {
 
   constructor(private http: HttpClient) { }
 
-  //Donaciones
   getDonaciones(): Observable<any[]> {
     return this.http.get<any>(this.HCMasterURL + '/Donaciones');
   }
@@ -42,6 +41,7 @@ export class DonacionesService {
       "fecha": fecha,
       "proyectoId": proyectoId
     }
+
     )
   }
 }

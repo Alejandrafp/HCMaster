@@ -1,3 +1,4 @@
+
 import { Component, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { Table } from 'primeng/table/table';
@@ -13,6 +14,7 @@ export class DonacionesComponent implements OnInit {
   
     donaDialog: boolean = false;
 
+
     deleteDonacionesDialog: boolean = false;
 
     deleteDonacioneDialog: boolean = false;
@@ -20,6 +22,7 @@ export class DonacionesComponent implements OnInit {
     donas:Donaciones [] = [];
 
     dona: Donaciones = {};
+
 
     selectedDonaciones: Donaciones[] = [];
 
@@ -32,6 +35,7 @@ export class DonacionesComponent implements OnInit {
     rowsPerPageOptions = [5, 10, 20];
 
     constructor(private api: DonacionesService, private messageService: MessageService) { }
+
 
     async ngOnInit() {
 
@@ -54,11 +58,13 @@ export class DonacionesComponent implements OnInit {
         this.dona = {};
         this.submitted = false;
         this.donaDialog = true;
+
     }
 
     async deleteSelectedDonaciones() {
         this.deleteDonacionesDialog = true;
     }
+
 
     editDonaciones(dona: Donaciones) {
         this.dona = { ...dona };
@@ -68,10 +74,12 @@ export class DonacionesComponent implements OnInit {
     async deleteDonaciones(dona: Donaciones) {
         this.deleteDonacionesDialog = true;
      
+
     }
 
     confirmDeleteSelected() {
         this.deleteDonacionesDialog = false;
+
         this.donas = this.donas.filter(val => !this.selectedDonaciones.includes(val));
         this.messageService.add({ severity: 'success', summary: 'Se ha eliminado', detail: 'Eliminado', life: 3000 });
         this.selectedDonaciones = [];
@@ -96,6 +104,7 @@ export class DonacionesComponent implements OnInit {
 
     saveDonaciones() {
         this.submitted = true;
+
 
         if (this.dona.donanteNombre?.trim()) {
 
@@ -148,3 +157,4 @@ export class DonacionesComponent implements OnInit {
             table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
         }
     }
+

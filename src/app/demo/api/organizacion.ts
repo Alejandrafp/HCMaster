@@ -1,12 +1,13 @@
-interface InventoryStatus {
-    label: string;
-    value: string;
-}
+// interface InventoryStatus {
+//     label: string;
+//     value: string;
+// }
 
 export interface Organizacion {
-    id?: string;
+    id?: number;
     name?: string;
     address?: string;
     email?: string;
     phone?: string;
+    description?: string;
 }

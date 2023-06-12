@@ -24,27 +24,22 @@ export class AppMenuComponent implements OnInit {
                 label: 'Herramientas',
                 icon: 'pi pi-fw pi-briefcase',
                 items: [
-                    {
-                        label: 'Auth',
-                        icon: 'pi pi-fw pi-user',
-                        items: [
-                            {
-                                label: 'Login',
-                                icon: 'pi pi-fw pi-sign-in',
-                                routerLink: ['/auth/login']
-                            },
-                            {
-                                label: 'Access Denied',
-                                icon: 'pi pi-fw pi-lock',
-                                routerLink: ['/auth/access']
-                            }
-                        ]
-                    },
-                    {
-                        label: 'Crud',
-                        icon: 'pi pi-fw pi-pencil',
-                        routerLink: ['/pages/crud']
-                    },
+                    // {
+                    //     label: 'Auth',
+                    //     icon: 'pi pi-fw pi-user',
+                    //     // items: [
+                    //     //     {
+                    //     //         label: 'Login',
+                    //     //         icon: 'pi pi-fw pi-sign-in',
+                    //     //         routerLink: ['/auth/login']
+                    //     //     },
+                    //     //     {
+                    //     //         label: 'Access Denied',
+                    //     //         icon: 'pi pi-fw pi-lock',
+                    //     //         routerLink: ['/auth/access']
+                    //     //     }
+                    //     // ]
+                    // },
                     {
                         label: 'Usuario',
                         icon: 'pi pi-user-plus',
@@ -57,7 +52,7 @@ export class AppMenuComponent implements OnInit {
                     },
                     {
                         label: 'Proyectos',
-                        icon: 'pi pi-wrench',
+                        icon: 'pi pi-folder-open',
                         routerLink: ['/pages/proyectos']
                     },
 
@@ -65,6 +60,23 @@ export class AppMenuComponent implements OnInit {
                         label: 'Voluntario',
                         icon: 'pi pi-wrench',
                         routerLink: ['/pages/voluntarios']
+                       },
+
+                    {
+                        label: 'Marketing',
+                        icon: 'pi pi-chart-bar',
+                        routerLink: ['/pages/marketing']
+                    },
+                    {
+                        label: 'Clientes',
+                        icon: 'pi pi-id-card',
+                        routerLink: ['/pages/clientes']
+                    },
+                    {
+                        label: 'Competencias',
+                        icon: 'pi pi-chart-line',
+                        routerLink: ['/pages/competencias']
+
                     },
                     {
                         label: 'Donaciones',
@@ -72,12 +84,28 @@ export class AppMenuComponent implements OnInit {
                         routerLink: ['/pages/donaciones']
                     },
                     {
+
                         label: 'Actividades de Voluntarios',
                         icon: 'pi pi-wrench',
                         routerLink: ['/pages/actividades-voluntariados']
                     },
                         
                         
+                        label: 'Encuestas',
+                        icon: 'pi pi-send',
+                        routerLink: ['/pages/encuestas']
+                    },
+                    {
+                        label: 'Tendencias',
+                        icon: 'pi pi-sort-alt',
+                        routerLink: ['/pages/tendencias']
+                    },
+                    {
+                        label: 'Graficas',
+                        icon: 'pi pi-chart-pie',
+                        routerLink: ['/pages/graficas']
+                    },
+
                 ]
             }
         ];

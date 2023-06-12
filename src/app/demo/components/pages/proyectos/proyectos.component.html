@@ -6,7 +6,7 @@
                 <ng-template pTemplate="left">
                     <div class="my-2">
                         <button pButton pRipple label="Agregar" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
-                        <button pButton pRipple label="Eliminar" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedProyectoss()" [disabled]="!selectedProyectoss || !selectedProyectoss.length"></button>
+                        <button pButton pRipple label="Eliminar" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedProyectos()" [disabled]="!selectedProyectos || !selectedProyectos.length"></button>
                     </div>
                 </ng-template>
 
@@ -16,13 +16,13 @@
                 </ng-template> -->
             </p-toolbar>
 
-            <p-table #dt [value]="proyectoss" [columns]="cols" responsiveLayout="scroll" [rows]="10" [globalFilterFields]="['name','country.name','representative.name','status']" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Paginación" [(selection)]="selectedProyectoss" selectionMode="multiple" [rowHover]="true" dataKey="id">
+            <p-table #dt [value]="proyectos" [columns]="cols" responsiveLayout="scroll" [rows]="10" [globalFilterFields]="['name','country.name','representative.name','status']" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Paginación" [(selection)]="selectedProyectos" selectionMode="multiple" [rowHover]="true" dataKey="id">
                 <ng-template pTemplate="caption">
                     <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
                         <h5 class="m-0">Proyectos</h5>
                         <span class="block mt-2 md:mt-0 p-input-icon-left">
                             <i class="pi pi-search"></i>
-                            <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Buscar..."  class="w-full sm:w-auto"/>
+                            <!-- <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Buscar..."  class="w-full sm:w-auto"/> -->
                         </span>
                     </div>
                 </ng-template>
@@ -32,13 +32,14 @@
                             <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                         </th>
                         <!-- <th pSortableColumn="code">Code <p-sortIcon field="code"></p-sortIcon></th> -->
-                        <th pSortableColumn="name">Nombre <p-sortIcon field="name"></p-sortIcon></th>
+                        <th pSortableColumn="title">Nombre<p-sortIcon field="title"></p-sortIcon></th>
                         <th pSortableColumn="location">Ubicación</th>
                         <th pSortableColumn="category">Categoria</th>
                         <th pSortableColumn="startDate">Fecha Inicio</th>
                         <th pSortableColumn="endDate">Fecha Final</th>
                         <th pSortableColumn="budget">Presupuesto</th>
                         <th pSortableColumn="organizationID">Id organización</th>
+                        <th pSortableColumn="organizationName">Nombre de la organización</th>
                         <!-- <th>Image</th> -->
                         <!-- <th pSortableColumn="price">Price <p-sortIcon field="price"></p-sortIcon></th> -->
                         <!-- <th pSortableColumn="category">Category <p-sortIcon field="category"></p-sortIcon></th> -->
@@ -56,8 +57,8 @@
                             {{product.code || product.id}}
                         </td> -->
                         <td style="width:14%; min-width:10rem;">
-                            <span class="p-column-title">Name</span>
-                            {{proyectos.name}}
+                            <span class="p-column-title">Nombre</span>
+                            {{proyectos.title}}
                         </td>
                         <td style="width:14%; min-width:10rem;">
                             <span class="p-column-title">Ubicación</span>
@@ -82,6 +83,10 @@
                         <td style="width:14%; min-width:13rem;">
                             <span class="p-column-title">Id Organización</span>
                             {{proyectos.organizationID}}
+                        </td>
+                        <td style="width:14%; min-width:13rem;">
+                            <span class="p-column-title">Nombre de la organización</span>
+                            {{proyectos.organizationName}}
                         </td>
                         
                         <!-- <td style="width:14%; min-width:10rem;"><span class="p-column-title">Image</span>
@@ -108,6 +113,17 @@
                             </div>
                         </td>
                     </tr>
+                     <p-dialog [(visible)]="deleteProyectosDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">
+            <div class="flex align-items-center justify-content-center">
+                <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+                <span *ngIf="proyectos">¿Estás seguro de que quieres borrar?<b>{{proyectos}}</b>?</span>
+            </div>
+            <ng-template pTemplate="footer">
+                <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No" (click)="deleteProyectosDialog = false"></button>
+                <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes" (click)="confirmDelete(proyectos)"></button>
+            </ng-template>
+        </p-dialog>
+
                 </ng-template>
             </p-table>
         </div>
@@ -115,39 +131,39 @@
         <p-dialog [(visible)]="proyectosDialog" [style]="{width: '450px'}" header="Información" [modal]="true" class="p-fluid">
             <ng-template pTemplate="content">
                <div class="field">
-                    <label for="name">Nombre</label>
-                    <input type="text" pInputText id="name" [(ngModel)]="proyectos.name" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !proyectos.name}"/>
-                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !proyectos.name">Name is required.</small>
+                    <label for="title">Nombre</label>
+                    <input type="text" pInputText id="title" [(ngModel)]="proyecto.title" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !proyecto.title}"/>
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !proyecto.title">Name is required.</small>
                 </div>
                 <div class="field">
                     <label for="location">Ubicación</label>
-                    <input type="text" pInputText id="location" [(ngModel)]="proyectos.location" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !proyectos.location}"/>
-                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !proyectos.location">La ubicación es requerida</small>
+                    <input type="text" pInputText id="location" [(ngModel)]="proyecto.location" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !proyecto.location}"/>
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !proyecto.location">La ubicación es requerida</small>
                 </div>
                 <div class="field">
                     <label for="category">Categoria</label>
-                    <input type="text" pInputText id="category" [(ngModel)]="proyectos.category" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !proyectos.category}"/>
-                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !proyectos.category">category is required.</small>
+                    <input type="text" pInputText id="category" [(ngModel)]="proyecto.category" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !proyecto.category}"/>
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !proyecto.category">category is required.</small>
                 </div>
                 <div class="field">
                     <label for="startDate">Fecha Inicio</label>
-                    <input type="text" pInputText id="startDate" [(ngModel)]="proyectos.startDate" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !proyectos.startDate}"/>
-                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !proyectos.startDate">startDate is required.</small>
+                    <input type="Date" pInputText id="startDate" [(ngModel)]="proyecto.startDate" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !proyecto.startDate}"/>
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !proyecto.startDate">startDate is required.</small>
                 </div>
                 <div class="field">
                     <label for="endDate">Fecha Inicio</label>
-                    <input type="text" pInputText id="endDate" [(ngModel)]="proyectos.endDate" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !proyectos.endDate}"/>
-                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !proyectos.endDate">endDate is required.</small>
+                    <input type="Date" pInputText id="endDate" [(ngModel)]="proyecto.endDate" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !proyecto.endDate}"/>
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !proyecto.endDate">endDate is required.</small>
                 </div>
                 <div class="field">
                     <label for="budget">Presupuesto</label>
-                    <input type="text" pInputText id="budget" [(ngModel)]="proyectos.budget" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !proyectos.budget}"/>
-                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !proyectos.budget">budget is required.</small>
+                    <input type="text" pInputText id="budget" [(ngModel)]="proyecto.budget" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !proyecto.budget}"/>
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !proyecto.budget">budget is required.</small>
                 </div>
                 <div class="field">
                     <label for="organizationID">Id Organización</label>
-                    <input type="text" pInputText id="organizationID" [(ngModel)]="proyectos.organizationID" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !proyectos.organizationID}"/>
-                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !proyectos.organizationID">organizationID is required.</small>
+                    <input type="text" pInputText id="organizationID" [(ngModel)]="proyecto.organizationID" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !proyecto.organizationID}"/>
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !proyecto.organizationID">organizationID is required.</small>
                 </div>
                 
                 <!-- Si se necesita -->
@@ -165,24 +181,14 @@
             </ng-template>
         </p-dialog>
 
+       
         <p-dialog [(visible)]="deleteProyectosDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">
-            <div class="flex align-items-center justify-content-center">
-                <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
-                <span *ngIf="proyectos">¿Estás seguro de que quieres borrar?<b>{{proyectos.name}}</b>?</span>
-            </div>
-            <ng-template pTemplate="footer">
-                <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No" (click)="deleteProyectosDialog = false"></button>
-                <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes" (click)="confirmDelete()"></button>
-            </ng-template>
-        </p-dialog>
-
-        <p-dialog [(visible)]="deleteProyectossDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">
             <div class="flex align-items-center justify-content-center">
                 <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
                 <span>¿Está seguro de que desea eliminar los productos seleccionados?</span>
             </div>
             <ng-template pTemplate="footer">
-                <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No" (click)="deleteProyectossDialog = false"></button>
+                <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No" (click)="deleteProyectosDialog = false"></button>
                 <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes" (click)="confirmDeleteSelected()"></button>
             </ng-template>
         </p-dialog>

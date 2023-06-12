@@ -8,4 +8,6 @@ import { DonacionesComponent } from './donaciones.component';
 	])],
 	exports: [RouterModule]
 })
+
 export class DonacionesRoutingModule { }
+

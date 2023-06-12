@@ -16,7 +16,7 @@ import { PhotoService } from './demo/service/photo.service';
 
 @NgModule({
     declarations: [
-        AppComponent,
+        AppComponent
     ],
     imports: [
         AppRoutingModule,

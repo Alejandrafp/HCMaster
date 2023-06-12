@@ -14,12 +14,12 @@
             </p-toolbar>
 
             <p-table #dt [value]="donas" [columns]="cols" responsiveLayout="scroll" [rows]="10" [globalFilterFields]="['name','country.name','representative.name','status']" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Paginación" [(selection)]="selectedDonaciones" selectionMode="multiple" [rowHover]="true" dataKey="id">
+
                 <ng-template pTemplate="caption">
                     <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
                         <h5 class="m-0">Donaciones</h5>
                         <span class="block mt-2 md:mt-0 p-input-icon-left">
                             <i class="pi pi-search"></i>
-                          
                         </span>
                     </div>
                 </ng-template>
@@ -28,7 +28,7 @@
                         <th style="width: 3rem">
                             <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                         </th>
-                      
+
                         <th pSortableColumn="donanteNombre">Nombre<p-sortIcon field="donanteNombre"></p-sortIcon></th>
                         <th pSortableColumn="cantidadDonada">Cantidad Donada</th>
                     
@@ -80,6 +80,7 @@
                 <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes" (dona)="confirmDelete(dona)"></button>
             </ng-template>
         </p-dialog>
+
 
                 </ng-template>
             </p-table>

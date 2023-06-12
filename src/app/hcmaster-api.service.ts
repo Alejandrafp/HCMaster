@@ -11,6 +11,7 @@ export class HCMasterApiService {
 
   constructor(private http: HttpClient) { }
 
+  //Usuarios
   getUsuarios(): Observable<any[]> {
     return this.http.get<any>(this.HCMasterURL + '/Usuarios');
   }
@@ -19,7 +20,7 @@ export class HCMasterApiService {
     return this.http.delete<any>(this.HCMasterURL + `/Usuarios/${id}`);
   }
 
-  addUsuario(usuario: Usuario): Observable<any[]> {
+  addUsuario(usuario: Usuario): Observable<any> {
     const { name, lastname, email, password, phone, address } = usuario;
 
     return this.http.post<any>(this.HCMasterURL + `/Usuarios`, {
@@ -34,7 +35,7 @@ export class HCMasterApiService {
     )
   }
 
-  editUsuario(usuario: Usuario): Observable<any[]> {
+  editUsuario(usuario: Usuario): Observable<any> {
     const { id, name, lastname, email, password, phone, address } = usuario;
 
     return this.http.put<any>(this.HCMasterURL + `/Usuarios/${id}`, {
@@ -49,4 +50,10 @@ export class HCMasterApiService {
     }
     )
   }
+
+  //Organizaciones
+  getOrganizaciones(): Observable<any[]> {
+    return this.http.get<any>(this.HCMasterURL + '/Organizaciones');
+  }
+
 }

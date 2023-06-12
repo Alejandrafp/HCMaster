@@ -9,14 +9,14 @@ import { OrganizacionService } from 'src/app/demo/service/organizacion.service';
     providers: [MessageService]
 })
 export class OrganizacionComponent implements OnInit {
-  
+
     organizacionDialog: boolean = false;
 
     deleteOrganizacionDialog: boolean = false;
 
-    deleteOrganizacionsDialog: boolean = false;
+    deleteOrganizacionesDialog: boolean = false;
 
-    organizacions: Organizacion[] = [];
+    organizaciones: Organizacion[] = [];
 
     organizacion: Organizacion = {};
 
@@ -30,18 +30,23 @@ export class OrganizacionComponent implements OnInit {
 
     rowsPerPageOptions = [5, 10, 20];
 
-    constructor(private organizacionService: OrganizacionService, private messageService: MessageService) { }
+    constructor(private api: OrganizacionService, private messageService: MessageService) { }
 
-    ngOnInit() {
-        this.organizacionService.getOrganizacion().then(data => this.organizacions = data);
+    async ngOnInit() {
 
-        this.cols = [
-            { field: 'name', header: 'Nombre' },
-            { field: 'address', header: 'Dirección' },
-            { field: 'email', header: 'Correo' },
-            { field: 'phone', header: 'Teléfono' },
-            { field: 'description', header: 'Descripcion' }
-        ];
+        this.api.getOrganizaciones().subscribe((data) => {
+
+            this.organizaciones = data.map((item) => {
+                return {
+                    id: item.id,
+                    name: item.nombre,
+                    address: item.direccion,
+                    email: item.correoElectronico,
+                    phone: item.telefono,
+                    description: item.descripcion,
+                }
+            });
+        })
     }
 
     openNew() {
@@ -50,8 +55,8 @@ export class OrganizacionComponent implements OnInit {
         this.organizacionDialog = true;
     }
 
-    deleteSelectedOrganizacions() {
-        this.deleteOrganizacionsDialog = true;
+    async deleteSelectedOrganizaciones() {
+        this.deleteOrganizacionesDialog = true;
     }
 
     editOrganizacion(organizacion: Organizacion) {
@@ -59,23 +64,28 @@ export class OrganizacionComponent implements OnInit {
         this.organizacionDialog = true;
     }
 
-    deleteOrganizacion(organizacion: Organizacion) {
+    async deleteOrganizacion(organizacion: Organizacion) {
         this.deleteOrganizacionDialog = true;
-        this.organizacion = { ...organizacion };
+        // this.organizacion = { ...organizacion };
     }
 
     confirmDeleteSelected() {
-        this.deleteOrganizacionsDialog = false;
-        this.organizacions = this.organizacions.filter(val => !this.selectedOrganizacions.includes(val));
+        this.deleteOrganizacionesDialog = false;
+        this.organizaciones = this.organizaciones.filter(val => !this.selectedOrganizacions.includes(val));
         this.messageService.add({ severity: 'success', summary: 'Se ha eliminado', detail: 'Eliminado', life: 3000 });
         this.selectedOrganizacions = [];
     }
 
-    confirmDelete() {
+    confirmDelete(organizacion: Organizacion) {
         this.deleteOrganizacionDialog = false;
-        this.organizacions = this.organizacions.filter(val => val.id !== this.organizacion.id);
-        this.messageService.add({ severity: 'success', summary: 'Elimnado con Éxito', detail: 'Eliminado', life: 3000 });
-        this.organizacion = {};
+        // this.organizacion = {};
+
+        if (organizacion.id !== undefined) {
+            this.api.deleteOrganizaciones(organizacion.id).subscribe((data) => {
+                this.organizaciones = this.organizaciones.filter(val => val.id !== this.organizacion.id);
+                this.messageService.add({ severity: 'success', summary: 'Elimnado con Éxito', detail: 'Eliminado', life: 3000 });
+            })
+        }
     }
 
     hideDialog() {
@@ -87,47 +97,53 @@ export class OrganizacionComponent implements OnInit {
         this.submitted = true;
 
         if (this.organizacion.name?.trim()) {
+
             if (this.organizacion.id) {
-                // @ts-ignore
-                // this.product.inventoryStatus = this.product.inventoryStatus.value ? this.product.inventoryStatus.value : this.product.inventoryStatus;
-                this.organizacions[this.findIndexById(this.organizacion.id)] = this.organizacion;
-                this.messageService.add({ severity: 'success', summary: 'Actualizado con Éxito', detail: 'Actualizada', life: 3000 });
+                this.api.editOrganizacion(this.organizacion).subscribe((data) => {
+                    const index = this.organizaciones.findIndex((user) => (user.id === this.organizacion.id));
+                    this.organizaciones[index] = this.organizacion;
+                    this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Organización actualizado', life: 3000 });
+                    
+                    this.organizaciones = [...this.organizaciones];
+                    this.organizacionDialog = false;
+                    this.organizacion = {};
+                })
             } else {
-                this.organizacion.id = this.createId();
-                // @ts-ignore
-                // this.product.inventoryStatus = this.product.inventoryStatus ? this.product.inventoryStatus.value : 'INSTOCK';
-                this.organizacions.push(this.organizacion);
-                this.messageService.add({ severity: 'success', summary: 'Creado con Éxito', detail: 'Organización creada', life: 3000 });
-            }
+                this.api.addOrganizaciones(this.organizacion).subscribe((data) => {
+                    this.organizaciones.push({ ...this.organizacion, id: data.id });
+                    this.messageService.add({ severity: 'success', summary: 'Creado con Éxito', detail: 'Organización creada', life: 3000 });
 
-            this.organizacions = [...this.organizacions];
-            this.organizacionDialog = false;
-            this.organizacion = {};
-        }
-    }
 
-    findIndexById(id: string): number {
-        let index = -1;
-        for (let i = 0; i < this.organizacions.length; i++) {
-            if (this.organizacions[i].id === id) {
-                index = i;
-                break;
+                    this.organizaciones = [...this.organizaciones];
+                    this.organizacionDialog = false;
+                    this.organizacion = {};
+                })
             }
         }
-
-        return index;
     }
 
-    createId(): string {
-        let id = '';
-        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-        for (let i = 0; i < 5; i++) {
-            id += chars.charAt(Math.floor(Math.random() * chars.length));
+        findIndexById(id: number): number {
+            let index = -1;
+            for (let i = 0; i < this.organizaciones.length; i++) {
+                if (this.organizaciones[i].id === id) {
+                    index = i;
+                    break;
+                }
+            }
+
+            return index;
         }
-        return id;
-    }
 
-    onGlobalFilter(table: Table, event: Event) {
-        table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
+        createId(): string {
+            let id = '';
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            for (let i = 0; i < 5; i++) {
+                id += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return id;
+        }
+
+        onGlobalFilter(table: Table, event: Event) {
+            table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
+        }
     }
-}

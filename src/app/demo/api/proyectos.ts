@@ -1,10 +1,11 @@
 export interface Proyectos {
-    id?: string;
-    name?: string;
+    id?: number;
+    title?: string;
     location?: string;
     category?: string;
-    startDate?: string;
-    endDate?: string;
+    startDate?: Date;
+    endDate?: Date;
     budget?: string;
-    organizationID?: string;
+    organizationID?: number;
+    organizationName?: string;
 }

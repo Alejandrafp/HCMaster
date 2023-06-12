@@ -4,7 +4,6 @@ import { Table } from 'primeng/table/table';
 import { Usuario } from 'src/app/demo/api/usuario';
 import { HCMasterApiService } from 'src/app/hcmaster-api.service';
 
-
 @Component({
     templateUrl: './usuario.component.html',
     providers: [MessageService]
@@ -49,17 +48,12 @@ export class UsuarioComponent implements OnInit {
                 }
             });
         })
-
-
-
     }
 
     openNew() {
         this.usuario = {};
         this.submitted = false;
         this.usuarioDialog = true;
-
-
     }
 
     async deleteSelectedUsuarios() {
@@ -74,8 +68,6 @@ export class UsuarioComponent implements OnInit {
 
     async deleteUsuarios(usuario: Usuario) {
         this.deleteUsuarioDialog = true;
-
-
     }
 
     confirmDeleteSelected() {
@@ -96,15 +88,11 @@ export class UsuarioComponent implements OnInit {
                 this.usuarios = this.usuarios.filter((item) => (item.id !== usuario.id));
             })
         }
-
-
-
         /* 
-                this.usuarios = this.usuarios.filter(val => val.id !== this.usuario.id);
-                this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000 });
-                this.usuario = {}; 
-                
-                */
+       this.usuarios = this.usuarios.filter(val => val.id !== this.usuario.id);
+       this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000 });
+       this.usuario = {};   
+       */
     }
 
     hideDialog() {
@@ -130,9 +118,12 @@ export class UsuarioComponent implements OnInit {
                 })
             } else {
                 this.api.addUsuario(this.usuario).subscribe((data) => {
-                    this.usuarios.push(this.usuario);
+                    this.usuarios.push({ 
+                        ...this.usuario,
+                          id: data.id
+                        });
                     this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Usuario Created', life: 3000 });
-                    
+
                     this.usuarios = [...this.usuarios];
                     this.usuarioDialog = false;
                     this.usuario = {};
@@ -140,8 +131,6 @@ export class UsuarioComponent implements OnInit {
             }
         }
     }
-
-  
 
     findIndexById(id: number): number {
         let index = -1;

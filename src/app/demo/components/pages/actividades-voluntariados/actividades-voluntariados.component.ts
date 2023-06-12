@@ -1,3 +1,4 @@
+
 import { Component, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { Table } from 'primeng/table/table';
@@ -151,3 +152,4 @@ export class ActividadesVoluntariadoComponent implements OnInit {
             table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
         }
     }
+
