@@ -57,8 +57,9 @@ export class EncuestasComponent {
         this.encuestaDialog = true;
     }
 
-    async deleteSelectedEncuestas() {
+    async deleteSelectedEncuestas(encuesta: Encuestas) {
         this.deleteEncuestasDialog = true;
+        this.encuesta = { ...encuesta };
     }
 
     editEncuestas(encuesta: Encuestas) {
@@ -68,7 +69,7 @@ export class EncuestasComponent {
 
     async deleteEncuestas(encuesta: Encuestas) {
         this.deleteEncuestaDialog = true;
-        // this.marketing = { ...marketing };    
+        this.encuesta = { ...encuesta };    
     }
 
     confirmDeleteSelected() {
@@ -78,15 +79,21 @@ export class EncuestasComponent {
         this.selectedEncuestas = [];
     }
 
+    showDate(date?: Date) {
+        if(!date) return '';
+        return new Date(date).toLocaleDateString();
+    }
+
     confirmDelete(encuesta: Encuestas) {
       this.deleteEncuestasDialog = false;
       // this.organizacion = {};
 
       if (encuesta.id !== undefined) {
           this.api.deleteEncuestas(encuesta.id).subscribe((data) => {
-              this.encuestas = this.encuestas.filter(val => val.id !== this.encuesta.id);
+              this.encuestas = this.encuestas.filter(val => val.id !== encuesta.id);
               this.messageService.add({ severity: 'success', summary: 'Elimnado con Éxito', detail: 'Eliminado', life: 3000 });
-          })
+              this.encuesta = {};
+            })
       }
     }
 
@@ -95,7 +102,7 @@ export class EncuestasComponent {
         this.submitted = false;
     }
 
-    saveMarketing() {
+    saveEncuesta() {
         this.submitted = true;
 
         if (this.encuesta.opinion?.trim()) {
@@ -126,12 +133,12 @@ export class EncuestasComponent {
 
     findIndexById(id: number): number {
         let index = -1;
-        /*for (let i = 0; i < this.marketings.length; i++) {
-            if (this.marketings[i].id === id) {
+        for (let i = 0; i < this.encuestas.length; i++) {
+            if (this.encuestas[i].id === id) {
                 index = i;
                 break;
             }
-        }*/
+        }
 
         return index;
     }

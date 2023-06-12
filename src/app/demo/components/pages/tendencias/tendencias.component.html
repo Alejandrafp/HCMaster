@@ -7,9 +7,9 @@
                     <div class="my-2 text-right">
                         <button pButton pRipple label="Agregar" icon="pi pi-plus" class="p-button-success mr-2"
                             (click)="openNew()"></button>
-                        <button pButton pRipple label="Eliminar" icon="pi pi-trash" class="p-button-danger"
+                        <!-- <button pButton pRipple label="Eliminar" icon="pi pi-trash" class="p-button-danger"
                             (click)="deleteSelectedTendencias()"
-                            [disabled]="!selectedTendencias || !selectedTendencias.length"></button>
+                            [disabled]="!selectedTendencias || !selectedTendencias.length"></button> -->
                     </div>
                 </ng-template>
 
@@ -54,41 +54,41 @@
                         <th></th>
                     </tr>
                 </ng-template>
-                <ng-template pTemplate="body" let-tendencias>
+                <ng-template pTemplate="body" let-tendencia>
                     <tr>
                         <td>
-                            <p-tableCheckbox [value]="tendencias"></p-tableCheckbox>
+                            <p-tableCheckbox [value]="tendencia"></p-tableCheckbox>
                         </td>
                         <!-- <td style="width:14%; min-width:10rem;"><span class="p-column-title">Code</span>
                             {{product.code || product.id}}
                         </td> -->
                         <td style="width:30%; min-width:10rem;">
                             <span class="p-column-title">Tamaño de mercado</span>
-                            {{tendencias.marketsize}}
+                            {{tendencia.marketsize}}
                         </td>
                         <td style="width:30%; min-width:10rem;">
                             <span class="p-column-title">Crecimiento de mercado</span>
-                            {{tendencias.growth}}
+                            {{tendencia.growth}}
                         </td>
                         <td style="width:30%; min-width:10rem;">
                             <span class="p-column-title">Oportunidades de crecimiento</span>
-                            {{tendencias.opportunities}}
+                            {{tendencia.opportunities}}
                         </td>
                         <td style="width:50%; min-width:10rem;">
                             <span class="p-column-title">Amenazas</span>
-                            {{tendencias.threats}}
+                            {{tendencia.threats}}
                         </td>
                         <td style="width:30%; min-width:10rem;">
                             <span class="p-column-title">Competencias</span>
-                            {{tendencias.competitionId}}
+                            {{tendencia.competitionId}}
                         </td>
                         <td>
                             <div class="flex">
                                 <button pButton pRipple icon="pi pi-pencil"
                                     class="p-button-rounded p-button-success mr-2"
-                                    (click)="editTendencias(tendencias)"></button>
+                                    (click)="editTendencias(tendencia)"></button>
                                 <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
-                                    (click)="deleteTendencias(tendencias)"></button>
+                                    (click)="deleteTendencias(tendencia)"></button>
                             </div>
                         </td>
                     </tr>
@@ -97,13 +97,13 @@
                         [style]="{width:'450px'}">
                         <div class="flex align-items-center justify-content-center">
                             <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
-                            <span *ngIf="tendencias">¿Estás seguro de que quieres borrar? <b>{{tendencias.marketsize}}</b></span>
+                            <span *ngIf="tendencia">¿Estás seguro de que quieres borrar? <b>{{tendencia.marketsize}}</b></span>
                         </div>
                         <ng-template pTemplate="footer">
                             <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No"
                                 (click)="deleteTendenciaDialog = false"></button>
                             <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes"
-                                (click)="confirmDelete(tendencias)"></button>
+                                (click)="confirmDelete(tendencia)"></button>
                         </ng-template>
                     </p-dialog>
                 </ng-template>
@@ -139,7 +139,7 @@
                 </div>
                 <div class="field">
                     <label for="competitionId">Competencias</label>
-                    <input type="text" pInputText id="competitionId" [(ngModel)]="tendencia.competitionId" required autofocus
+                    <input type="number" pInputText id="competitionId" [(ngModel)]="tendencia.competitionId" required autofocus
                         [ngClass]="{'ng-invalid ng-dirty' : submitted && !tendencia.competitionId}" />
                     <small class="ng-dirty ng-invalid" *ngIf="submitted && !tendencia.competitionId">Canal is required.</small>
                 </div>
@@ -164,7 +164,7 @@
                 <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No"
                     (click)="deleteTendenciasDialog = false"></button>
                 <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes"
-                    (click)="confirmDeleteSelected()"></button>
+                    (click)="confirmDelete(tendencia)"></button>
             </ng-template>
         </p-dialog>
     </div>

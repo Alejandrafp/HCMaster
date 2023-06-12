@@ -73,6 +73,11 @@ export class ProyectosComponent implements OnInit {
         // this.organizacion = { ...organizacion };
     }
 
+    showDate(date?: Date) {
+        if(!date) return '';
+        return new Date(date).toLocaleDateString();
+    }
+
     confirmDeleteSelected() {
         this.deleteProyectosDialog = false;
         this.proyectos = this.proyectos.filter(val => !this.selectedProyectos.includes(val));
@@ -86,7 +91,7 @@ export class ProyectosComponent implements OnInit {
 
         if (proyecto.id !== undefined) {
             this.api.deleteProyectos(proyecto.id).subscribe((data) => {
-                this.proyectos = this.proyectos.filter(val => val.id !== this.proyecto.id);
+                this.proyectos = this.proyectos.filter(val => val.id !== proyecto.id);
                 this.messageService.add({ severity: 'success', summary: 'Elimnado con Éxito', detail: 'Eliminado', life: 3000 });
             })
         }

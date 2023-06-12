@@ -56,9 +56,9 @@ export class UsuarioComponent implements OnInit {
         this.usuarioDialog = true;
     }
 
-    async deleteSelectedUsuarios() {
+    async deleteSelectedUsuarios(usuario: Usuario) {
         this.deleteUsuariosDialog = true;
-
+        this.usuario = { ...usuario };
     }
 
     editUsuarios(usuario: Usuario) {
@@ -68,6 +68,7 @@ export class UsuarioComponent implements OnInit {
 
     async deleteUsuarios(usuario: Usuario) {
         this.deleteUsuarioDialog = true;
+        this.usuario = { ...usuario };
     }
 
     confirmDeleteSelected() {
@@ -86,6 +87,8 @@ export class UsuarioComponent implements OnInit {
         if (usuario.id !== undefined) {
             this.api.deleteUsuario(usuario.id).subscribe((data) => {
                 this.usuarios = this.usuarios.filter((item) => (item.id !== usuario.id));
+                this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000 });
+                this.usuario = {};   
             })
         }
         /* 

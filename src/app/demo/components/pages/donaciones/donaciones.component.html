@@ -7,9 +7,9 @@
                     <div class="my-2 text-right">
                         <button pButton pRipple label="Agregar" icon="pi pi-plus" class="p-button-success mr-2"
                             (click)="openNew()"></button>
-                        <button pButton pRipple label="Eliminar" icon="pi pi-trash" class="p-button-danger"
+                        <!-- <button pButton pRipple label="Eliminar" icon="pi pi-trash" class="p-button-danger"
                             (click)="deleteSelectedDonaciones()"
-                            [disabled]="!selectedDonaciones || !selectedDonaciones.length"></button>
+                            [disabled]="!selectedDonaciones || !selectedDonaciones.length"></button> -->
                     </div>
                 </ng-template>
 
@@ -65,15 +65,15 @@
                             <span class="p-column-title">Nombre del donante</span>
                             {{donacione.nameDonor}}
                         </td>
-                        <td style="width:30%; min-width:10rem;">
+                        <td style="width:20%; min-width:10rem;">
                             <span class="p-column-title">Cantidad donada</span>
                             {{donacione.quantityDonnor}}
                         </td>
-                        <td style="width:30%; min-width:10rem;">
+                        <td style="width:20%; min-width:10rem;">
                             <span class="p-column-title">Fecha</span>
-                            {{donacione.date}}
+                            {{showDate(donacione.date)}}
                         </td>
-                        <td style="width:30%; min-width:10rem;">
+                        <td style="width:20%; min-width:10rem;">
                             <span class="p-column-title">Proyecto</span>
                             {{donacione.projectId}}
                         </td>

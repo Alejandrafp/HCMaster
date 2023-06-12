@@ -68,6 +68,11 @@ export class DonacionesComponent implements OnInit{
         this.deleteDonacionesDialog = true;   
     }
 
+    showDate(date?: Date) {
+        if(!date) return '';
+        return new Date(date).toLocaleDateString();
+    }
+
     confirmDeleteSelected() {
         this.deleteDonacionesDialog = false;
         this.donaciones = this.donaciones.filter(val => !this.selectedDonaciones.includes(val));
@@ -81,7 +86,7 @@ export class DonacionesComponent implements OnInit{
 
       if (donacione.id !== undefined) {
           this.api.deleteDonaciones(donacione.id).subscribe((data) => {
-              this.donaciones = this.donaciones.filter(val => val.id !== this.donacione.id);
+              this.donaciones = this.donaciones.filter(val => val.id !== donacione.id);
               this.messageService.add({ severity: 'success', summary: 'Elimnado con Éxito', detail: 'Eliminado', life: 3000 });
           })
       }
@@ -123,12 +128,12 @@ export class DonacionesComponent implements OnInit{
 
     findIndexById(id: number): number {
         let index = -1;
-        /*for (let i = 0; i < this.marketings.length; i++) {
-            if (this.marketings[i].id === id) {
+        for (let i = 0; i < this.donaciones.length; i++) {
+            if (this.donaciones[i].id === id) {
                 index = i;
                 break;
             }
-        }*/
+        }
 
         return index;
     }
