@@ -1,24 +1,28 @@
-import { Component,OnInit } from '@angular/core';
+
+import { Component, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { Table } from 'primeng/table';
-import { Donaciones } from 'src/app/demo/api/donaciones';
+import { Table } from 'primeng/table/table';
+import {Donaciones } from 'src/app/demo/api/donaciones';
 import { DonacionesService } from 'src/app/demo/service/donaciones.service';
 
+
 @Component({
-  selector: 'donaciones',
   templateUrl: './donaciones.component.html',
   providers: [MessageService]
 })
-export class DonacionesComponent implements OnInit{
-   donacionesDialog: boolean = false;
+export class DonacionesComponent implements OnInit {
+  
+    donaDialog: boolean = false;
+
 
     deleteDonacionesDialog: boolean = false;
 
     deleteDonacioneDialog: boolean = false;
 
-    donaciones: Donaciones[] = [];
+    donas:Donaciones [] = [];
 
-    donacione: Donaciones = {};
+    dona: Donaciones = {};
+
 
     selectedDonaciones: Donaciones[] = [];
 
@@ -32,117 +36,125 @@ export class DonacionesComponent implements OnInit{
 
     constructor(private api: DonacionesService, private messageService: MessageService) { }
 
-    ngOnInit() {
+
+    async ngOnInit() {
 
         this.api.getDonaciones().subscribe((data) => {
 
-          this.donaciones = data.map((item) => {
-              return {
-                  id: item.id,
-                  nameDonor: item.donanteNombre,
-                  quantityDonnor: item.cantidadDonada,
-                  date: item.fecha,
-                  projectId: item.proyectoId
-              }
-          });
-      })
-
+            this.donas = data.map((item) => {
+                return {
+                    id: item.id,
+                    donanteNombre: item.donanteNombre,
+                    cantidadDonada: item.cantidadDonada,
+                    fecha: item.fecha,  
+                    proyectoId: item.proyectoId 
+                   
+                }
+            });
+        })
     }
 
     openNew() {
-        this.donacione = {};
+        this.dona = {};
         this.submitted = false;
-        this.donacionesDialog = true;
+        this.donaDialog = true;
+
     }
 
     async deleteSelectedDonaciones() {
         this.deleteDonacionesDialog = true;
     }
 
-    editDonaciones(donacione: Donaciones) {
-        this.donacione = { ...donacione };
-        this.donacionesDialog = true;
+
+    editDonaciones(dona: Donaciones) {
+        this.dona = { ...dona };
+        this.donaDialog = true;
     }
 
-    async deleteDonaciones(donacione: Donaciones) {
-        this.deleteDonacionesDialog = true;   
+    async deleteDonaciones(dona: Donaciones) {
+        this.deleteDonacionesDialog = true;
+     
+
     }
 
     confirmDeleteSelected() {
         this.deleteDonacionesDialog = false;
-        this.donaciones = this.donaciones.filter(val => !this.selectedDonaciones.includes(val));
-        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'marketings Deleted', life: 3000 });
+
+        this.donas = this.donas.filter(val => !this.selectedDonaciones.includes(val));
+        this.messageService.add({ severity: 'success', summary: 'Se ha eliminado', detail: 'Eliminado', life: 3000 });
         this.selectedDonaciones = [];
     }
 
-    confirmDelete(donacione: Donaciones) {
-      this.deleteDonacionesDialog = false;
-      // this.organizacion = {};
+    confirmDelete(dona: Donaciones) {
+        this.deleteDonacionesDialog = false;
+        // this.organizacion = {};
 
-      if (donacione.id !== undefined) {
-          this.api.deleteDonaciones(donacione.id).subscribe((data) => {
-              this.donaciones = this.donaciones.filter(val => val.id !== this.donacione.id);
-              this.messageService.add({ severity: 'success', summary: 'Elimnado con Éxito', detail: 'Eliminado', life: 3000 });
-          })
-      }
+        if (dona.id !== undefined) {
+            this.api.deleteDonaciones(dona.id).subscribe((data) => {
+                this.donas = this.donas.filter(val => val.id !== this.dona.id);
+                this.messageService.add({ severity: 'success', summary: 'Elimnado con Éxito', detail: 'Eliminado', life: 3000 });
+            })
+        }
     }
 
     hideDialog() {
-        this.donacionesDialog = false;
+        this.donaDialog = false;
         this.submitted = false;
     }
 
     saveDonaciones() {
         this.submitted = true;
 
-        if (this.donacione.nameDonor?.trim()) {
 
-          if (this.donacione.id) {
-              this.api.editDonaciones(this.donacione).subscribe((data) => {
-                  const index = this.donaciones.findIndex((user) => (user.id === this.donacione.id));
-                  this.donaciones[index] = this.donacione;
-                  this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Organización actualizado', life: 3000 });
-                  
-                  this.donaciones = [...this.donaciones];
-                  this.donacionesDialog = false;
-                  this.donacione = {};
-              })
-          } else {
-              this.api.addDonaciones(this.donacione).subscribe((data) => {
-                  this.donaciones.push({ ...this.donacione, id: data.id });
-                  this.messageService.add({ severity: 'success', summary: 'Creado con Éxito', detail: 'Organización creada', life: 3000 });
+        if (this.dona.donanteNombre?.trim()) {
+
+            if (this.dona.id) {
+                this.api.editDonaciones(this.dona).subscribe((data) => {
+                    const index = this.donas.findIndex((user) => (user.id === this.dona.id));
+                    this.donas[index] = this.dona;
+                    this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Organización actualizado', life: 3000 });
+                    
+                    this.donas = [...this.donas];
+                    this.donaDialog = false;
+                    this.dona = {};
+                })
+            } else {
+                this.api.addDonaciones(this.dona).subscribe((data) => {
+                    this.donas.push(this.dona);
+                    this.messageService.add({ severity: 'success', summary: 'Creado con Éxito', detail: 'Donación creada', life: 3000 });
 
 
-                  this.donaciones = [...this.donaciones];
-                  this.donacionesDialog = false;
-                  this.donacione = {};
-              })
-          }
-      }
-    }
-
-    findIndexById(id: number): number {
-        let index = -1;
-        /*for (let i = 0; i < this.marketings.length; i++) {
-            if (this.marketings[i].id === id) {
-                index = i;
-                break;
+                    this.donas = [...this.donas];
+                    this.donaDialog = false;
+                    this.dona = {};
+                })
             }
-        }*/
-
-        return index;
-    }
-
-    createId(): string {
-        let id = '';
-        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-        for (let i = 0; i < 5; i++) {
-            id += chars.charAt(Math.floor(Math.random() * chars.length));
         }
-        return id;
     }
 
-    onGlobalFilter(table: Table, event: Event) {
-        table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
+        findIndexById(id: number): number {
+            let index = -1;
+            for (let i = 0; i < this.donas.length; i++) {
+                if (this.donas[i].id === id) {
+                    index = i;
+                    break;
+                }
+            }
+
+            return index;
+        }
+
+        createId(): string {
+            let id = '';
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            for (let i = 0; i < 5; i++) {
+                id += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return id;
+        }
+
+        onGlobalFilter(table: Table, event: Event) {
+            table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
+        }
     }
-}
+

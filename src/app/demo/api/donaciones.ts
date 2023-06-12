@@ -1,7 +1,8 @@
-export interface Donaciones{
+
+export interface Donaciones {
     id?: number;
-    nameDonor?: string;
-    quantityDonnor?: number;
-    date?: Date;
-    projectId?: number; 
+    donanteNombre?: string;
+    cantidadDonada?: number;
+    fecha?: Date;
+    proyectoId?: number;
 }
