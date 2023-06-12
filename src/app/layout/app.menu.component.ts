@@ -85,7 +85,12 @@ export class AppMenuComponent implements OnInit {
                         icon: 'pi pi-sort-alt',
                         routerLink: ['/pages/tendencias']
                     },
-                        
+                    {
+                        label: 'Graficas',
+                        icon: 'pi pi-chart-pie',
+                        routerLink: ['/pages/graficas']
+                    },
+
                 ]
             }
         ];

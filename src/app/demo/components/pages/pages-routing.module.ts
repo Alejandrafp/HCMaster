@@ -13,6 +13,7 @@ import { RouterModule } from '@angular/router';
         { path: 'donaciones', loadChildren: () => import('./donaciones/donaciones.module').then(m => m.DonacionesModule) },
         { path: 'encuestas', loadChildren: () => import('./encuestas/encuestas.module').then(m => m.EncuestasModule) },
         { path: 'tendencias', loadChildren: () => import('./tendencias/tendencias.module').then(m => m.TendenciasModule) },
+        { path: 'graficas', loadChildren: () => import('./graficas/graficas.module').then(m => m.GraficasModule) },
         { path: '**', redirectTo: '/notfound' }
     ])],
     exports: [RouterModule]
