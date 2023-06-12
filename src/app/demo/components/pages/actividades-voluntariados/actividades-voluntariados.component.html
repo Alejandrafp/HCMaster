@@ -1,1 +1,155 @@
-<p>actividades-voluntariados works!</p>
+
+<div class="grid">
+    <div class="col-12">
+        <div class="card px-6 py-6">
+            <p-toast></p-toast>
+            <p-toolbar styleClass="mb-4">
+                <ng-template pTemplate="left">
+                    <div class="my-2">
+                        <button pButton pRipple label="Agregar" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
+                        <button pButton pRipple label="Eliminar" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedActividadesVoluntariado()" [disabled]="!selectedActividadesVoluntariados || !selectedActividadesVoluntariados.length"></button>
+                    </div>
+                </ng-template>
+
+            </p-toolbar>
+
+            <p-table #dt [value]="activ" [columns]="cols" responsiveLayout="scroll" [rows]="10" [globalFilterFields]="['name','country.name','representative.name','status']" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Paginación" [(selection)]="selectedActividadesVoluntariados" selectionMode="multiple" [rowHover]="true" dataKey="id">
+                <ng-template pTemplate="caption">
+                    <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+                        <h5 class="m-0">Actividades de Voluntarios</h5>
+                        <span class="block mt-2 md:mt-0 p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                          
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 3rem">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
+                        <!-- <th pSortableColumn="code">Code <p-sortIcon field="code"></p-sortIcon></th> -->
+                        <th pSortableColumn="titulo">Título<p-sortIcon field="titulo"></p-sortIcon></th>
+                        <th pSortableColumn="description">Descripción</th>
+                        <th pSortableColumn="ubicacion">Ubicación</th>
+                        <th pSortableColumn="fechahora">Fecha y Hora</th> 
+                        <th pSortableColumn="volunrequeridos">Voluntarios Requeridos</th>
+                        <th pSortableColumn="organizacioniD">Id organización</th>
+                       
+                        <th></th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-activ>
+                    <tr>
+                        <td>
+                            <p-tableCheckbox [value]="activ"></p-tableCheckbox>
+                        </td>
+                       
+                        <td style="width:14%; min-width:10rem;">
+                            <span class="p-column-title">Título</span>
+                            {{activ.titulo}}
+                        </td>
+                        <td style="width:14%; min-width:10rem;">
+                            <span class="p-column-title">Descripción</span>
+                            {{activ.descripcion}}
+                        </td>
+                        <td style="width:14%; min-width:10rem;">
+                            <span class="p-column-title">Ubicación</span>
+                            {{activ.ubicacion}}
+                        </td>
+                        <td style="width:14%; min-width:10rem;">
+                            <span class="p-column-title">Fecha y Hora</span>
+                            {{activ.fechaHora}}
+                        </td>
+                        <td style="width:14%; min-width:10rem;">
+                            <span class="p-column-title">Voluntarios Requeridos</span>
+                            {{activ.voluntariosRequeridos}}
+                        </td>
+                        
+                        <td style="width:14%; min-width:13rem;">
+                            <span class="p-column-title">Id Organización</span>
+                            {{activ.organizacionId}}
+                        </td>
+                        
+                     
+                        <td>
+                            <div class="flex">
+                                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editActividadesVoluntariado(activ)"></button>
+                                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteActividadesVoluntariado(activ)"></button>
+                            </div>
+                        </td>
+                    </tr>
+                     <p-dialog [(visible)]="deleteActividadesVoluntariadoDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">
+            <div class="flex align-items-center justify-content-center">
+                <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+                <span *ngIf="activ">¿Estás seguro de que quieres borrar?<b>{{activ}}</b>?</span>
+            </div>
+            <ng-template pTemplate="footer">
+                <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No" (click)="deleteActividadesVoluntariadoDialog = false"></button>
+                <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes" (click)="confirmDelete(activ)"></button>
+            </ng-template>
+        </p-dialog>
+
+                </ng-template>
+            </p-table>
+        </div>
+
+        <p-dialog [(visible)]="actiDialog" [style]="{width: '450px'}" header="Información" [modal]="true" class="p-fluid">
+            <ng-template pTemplate="content">
+               <div class="field">
+                    <label for="titulo">Título</label>
+                    <input type="text" pInputText id="titulo" [(ngModel)]="acti.titulo" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !acti.titulo}"/>
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !acti.titulo">El Título es requerido.</small>
+                </div>
+                <div class="field">
+                    <label for="descripcion">Descripcion</label>
+                    <input type="text" pInputText id="descripcion" [(ngModel)]="acti.descripcion" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !acti.descripcion}"/>
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !acti.descripcion">La Descripción es requerida.</small>
+                </div>
+                <div class="field">
+                    <label for="ubicacion">Ubicación</label>
+                    <input type="text" pInputText id="ubicacion" [(ngModel)]="acti.ubicacion" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !acti.ubicacion}"/>
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !acti.ubicacion">La Ubicación es requerida.</small>
+                </div>
+                <div class="field">
+                    <label for="fechaHora">Fecha y Hora</label>
+                    <input type="text" pInputText id="fechaHora" [(ngModel)]="acti.fechaHora" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !acti.fechaHora}"/>
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !acti.fechaHora">La fecha es requerida.</small>
+                </div>
+            
+                <div class="field">
+                    <label for="voluntariosRequeridos">Voluntarios Requeridos</label>
+                    <input type="text" pInputText id="voluntariosRequeridos" [(ngModel)]="acti.voluntariosRequeridos" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !acti.voluntariosRequeridos}"/>
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !acti.voluntariosRequeridos">La Cantidad de Voluntarios es requerida.</small>
+                </div>
+                <div class="field">
+                    <label for="organizacionId">Id Organización</label>
+                    <input type="text" pInputText id="organizacionId" [(ngModel)]="acti.organizacionId" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !acti.organizacionId}"/>
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !acti.organizacionId">ID Organización es querido.</small>
+              </div>
+                
+         
+
+               
+            </ng-template>
+
+            <ng-template pTemplate="footer">
+                <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+                <button pButton pRipple label="Guardar" icon="pi pi-check" class="p-button-text" (click)="saveActividadesVoluntariado()"></button>
+            </ng-template>
+        </p-dialog>
+
+       
+        <p-dialog [(visible)]="deleteActividadesVoluntariadoDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">
+            <div class="flex align-items-center justify-content-center">
+                <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+                <span>¿Está seguro de que desea eliminar las Actividades seleccionados?</span>
+            </div>
+            <ng-template pTemplate="footer">
+                <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No" (click)="deleteActividadesVoluntariadoDialog = false"></button>
+                <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes" (click)="confirmDeleteSelected()"></button>
+            </ng-template>
+        </p-dialog>
+    </div>
+</div>
+

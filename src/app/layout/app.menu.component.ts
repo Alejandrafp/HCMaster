@@ -55,6 +55,13 @@ export class AppMenuComponent implements OnInit {
                         icon: 'pi pi-folder-open',
                         routerLink: ['/pages/proyectos']
                     },
+
+                    {
+                        label: 'Voluntario',
+                        icon: 'pi pi-wrench',
+                        routerLink: ['/pages/voluntarios']
+                       },
+
                     {
                         label: 'Marketing',
                         icon: 'pi pi-chart-bar',
@@ -69,6 +76,7 @@ export class AppMenuComponent implements OnInit {
                         label: 'Competencias',
                         icon: 'pi pi-chart-line',
                         routerLink: ['/pages/competencias']
+
                     },
                     {
                         label: 'Donaciones',
@@ -76,6 +84,13 @@ export class AppMenuComponent implements OnInit {
                         routerLink: ['/pages/donaciones']
                     },
                     {
+
+                        label: 'Actividades de Voluntarios',
+                        icon: 'pi pi-wrench',
+                        routerLink: ['/pages/actividades-voluntariados']
+                    },
+                        
+                        
                         label: 'Encuestas',
                         icon: 'pi pi-send',
                         routerLink: ['/pages/encuestas']
@@ -85,7 +100,12 @@ export class AppMenuComponent implements OnInit {
                         icon: 'pi pi-sort-alt',
                         routerLink: ['/pages/tendencias']
                     },
-                        
+                    {
+                        label: 'Graficas',
+                        icon: 'pi pi-chart-pie',
+                        routerLink: ['/pages/graficas']
+                    },
+
                 ]
             }
         ];

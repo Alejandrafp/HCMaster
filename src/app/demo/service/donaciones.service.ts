@@ -19,28 +19,29 @@ export class DonacionesService {
     return this.http.delete<any>(this.HCMasterURL + `/Donaciones/${id}`);
   }
 
-  addDonaciones(donaciones: Donaciones): Observable<any> {
-    const { nameDonor, quantityDonnor, date, projectId } = donaciones;
+  addDonaciones(dona: Donaciones): Observable<any[]> {
+    const { donanteNombre, cantidadDonada, fecha, proyectoId } = dona;
 
     return this.http.post<any>(this.HCMasterURL + `/Donaciones`, {
-        "donanteNombre": nameDonor,
-        "cantidadDonada": quantityDonnor,
-        "fecha": date,
-        "proyectoId": projectId
-      }
+      "donanteNombre": donanteNombre,
+      "cantidaddonada": cantidadDonada,
+      "fecha": fecha,
+      "proyectoId": proyectoId
+    }
     )
   }
 
-  editDonaciones(donaciones: Donaciones): Observable<any> {
-    const { id, nameDonor, quantityDonnor, date, projectId } = donaciones;
+  editDonaciones(dona: Donaciones): Observable<any[]> {
+    const { id, donanteNombre, cantidadDonada, fecha, proyectoId  } = dona;
 
     return this.http.put<any>(this.HCMasterURL + `/Donaciones/${id}`, {
-        "id": id,
-        "donanteNombre": nameDonor,
-        "cantidadDonada": quantityDonnor,
-        "fecha": date,
-        "proyectoId": projectId
-      }
+      "id":id,
+      "donanteNombre": donanteNombre,
+      "cantidaddonada": cantidadDonada,
+      "fecha": fecha,
+      "proyectoId": proyectoId
+    }
+
     )
   }
 }
