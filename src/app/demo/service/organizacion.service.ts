@@ -44,7 +44,7 @@ export class OrganizacionService {
       "direccion": address,
       "correoElectronico": email,
       "telefono": phone,
-      "descripcion": address,
+      "descripcion": description,
       "actividadesVoluntariado": [],
       "proyectos": []
     }

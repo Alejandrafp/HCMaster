@@ -77,6 +77,11 @@ export class DonacionesComponent implements OnInit {
 
     }
 
+    showDate(date?: Date) {
+        if(!date) return '';
+        return new Date(date).toLocaleDateString();
+    }
+
     confirmDeleteSelected() {
         this.deleteDonacionesDialog = false;
 
@@ -89,12 +94,14 @@ export class DonacionesComponent implements OnInit {
         this.deleteDonacionesDialog = false;
         // this.organizacion = {};
 
+
         if (dona.id !== undefined) {
             this.api.deleteDonaciones(dona.id).subscribe((data) => {
                 this.donas = this.donas.filter(val => val.id !== this.dona.id);
                 this.messageService.add({ severity: 'success', summary: 'Elimnado con Éxito', detail: 'Eliminado', life: 3000 });
             })
         }
+
     }
 
     hideDialog() {
@@ -132,6 +139,7 @@ export class DonacionesComponent implements OnInit {
         }
     }
 
+
         findIndexById(id: number): number {
             let index = -1;
             for (let i = 0; i < this.donas.length; i++) {
@@ -140,6 +148,7 @@ export class DonacionesComponent implements OnInit {
                     break;
                 }
             }
+
 
             return index;
         }

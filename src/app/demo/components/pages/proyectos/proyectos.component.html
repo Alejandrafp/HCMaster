@@ -6,7 +6,7 @@
                 <ng-template pTemplate="left">
                     <div class="my-2">
                         <button pButton pRipple label="Agregar" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
-                        <button pButton pRipple label="Eliminar" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedProyectos()" [disabled]="!selectedProyectos || !selectedProyectos.length"></button>
+                        <!-- <button pButton pRipple label="Eliminar" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedProyectos()" [disabled]="!selectedProyectos || !selectedProyectos.length"></button> -->
                     </div>
                 </ng-template>
 
@@ -22,7 +22,8 @@
                         <h5 class="m-0">Proyectos</h5>
                         <span class="block mt-2 md:mt-0 p-input-icon-left">
                             <i class="pi pi-search"></i>
-                            <!-- <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Buscar..."  class="w-full sm:w-auto"/> -->
+                            <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Buscar..."
+                                class="w-full sm:w-auto" />
                         </span>
                     </div>
                 </ng-template>
@@ -39,7 +40,7 @@
                         <th pSortableColumn="endDate">Fecha Final</th>
                         <th pSortableColumn="budget">Presupuesto</th>
                         <th pSortableColumn="organizationID">Id organización</th>
-                        <th pSortableColumn="organizationName">Nombre de la organización</th>
+                        <!-- <th pSortableColumn="organizationName">Nombre de la organización</th> -->
                         <!-- <th>Image</th> -->
                         <!-- <th pSortableColumn="price">Price <p-sortIcon field="price"></p-sortIcon></th> -->
                         <!-- <th pSortableColumn="category">Category <p-sortIcon field="category"></p-sortIcon></th> -->
@@ -70,11 +71,11 @@
                         </td>
                         <td style="width:14%; min-width:10rem;">
                             <span class="p-column-title">Fecha Inicio</span>
-                            {{proyectos.startDate}}
+                            {{showDate(proyectos.startDate)}}
                         </td>
                         <td style="width:14%; min-width:10rem;">
                             <span class="p-column-title">Fecha Final</span>
-                            {{proyectos.endDate}}
+                            {{showDate(proyectos.endDate)}}
                         </td>
                         <td style="width:14%; min-width:10rem;">
                             <span class="p-column-title">Presupuesto</span>
@@ -84,28 +85,11 @@
                             <span class="p-column-title">Id Organización</span>
                             {{proyectos.organizationID}}
                         </td>
-                        <td style="width:14%; min-width:13rem;">
+                        <!-- <td style="width:14%; min-width:13rem;">
                             <span class="p-column-title">Nombre de la organización</span>
                             {{proyectos.organizationName}}
-                        </td>
+                        </td> -->
                         
-                        <!-- <td style="width:14%; min-width:10rem;"><span class="p-column-title">Image</span>
-                            <img [src]="'assets/demo/images/product/' + product.image" [alt]="product.name" width="100" class="shadow-4" />
-                        </td> -->
-                        <!-- <td style="width:14%; min-width:8rem;">
-                            <span class="p-column-title">Price</span>
-                            {{product.price | currency:'USD'}}
-                        </td> -->
-                        <!-- <td style="width:14%; min-width:10rem;">
-                            <span class="p-column-title">Category</span>
-                            {{product.category}}
-                        </td> -->
-                        <!-- <td style="width:14%; min-width: 10rem;"><span class="p-column-title">Reviews</span>
-                            <p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating>
-                        </td> -->
-                        <!-- <td style="width:14%; min-width: 10rem;"><span class="p-column-title">Status</span>
-                            <span [class]="'product-badge status-' + (product.inventoryStatus ? product.inventoryStatus.toLowerCase() : '')">{{product.inventoryStatus}}</span>
-                        </td> -->
                         <td>
                             <div class="flex">
                                 <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editProyectos(proyectos)"></button>
@@ -116,7 +100,7 @@
                      <p-dialog [(visible)]="deleteProyectosDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">
             <div class="flex align-items-center justify-content-center">
                 <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
-                <span *ngIf="proyectos">¿Estás seguro de que quieres borrar?<b>{{proyectos}}</b>?</span>
+                <span *ngIf="proyectos">¿Estás seguro de que quieres borrar?</span>
             </div>
             <ng-template pTemplate="footer">
                 <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No" (click)="deleteProyectosDialog = false"></button>
@@ -157,12 +141,12 @@
                 </div>
                 <div class="field">
                     <label for="budget">Presupuesto</label>
-                    <input type="text" pInputText id="budget" [(ngModel)]="proyecto.budget" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !proyecto.budget}"/>
+                    <input type="number" pInputText id="budget" [(ngModel)]="proyecto.budget" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !proyecto.budget}"/>
                     <small class="ng-dirty ng-invalid" *ngIf="submitted && !proyecto.budget">budget is required.</small>
                 </div>
                 <div class="field">
                     <label for="organizationID">Id Organización</label>
-                    <input type="text" pInputText id="organizationID" [(ngModel)]="proyecto.organizationID" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !proyecto.organizationID}"/>
+                    <input type="number" pInputText id="organizationID" [(ngModel)]="proyecto.organizationID" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !proyecto.organizationID}"/>
                     <small class="ng-dirty ng-invalid" *ngIf="submitted && !proyecto.organizationID">organizationID is required.</small>
                 </div>
                 

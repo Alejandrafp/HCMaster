@@ -55,8 +55,9 @@ export class OrganizacionComponent implements OnInit {
         this.organizacionDialog = true;
     }
 
-    async deleteSelectedOrganizaciones() {
+    async deleteSelectedOrganizaciones(organizacion: Organizacion) {
         this.deleteOrganizacionesDialog = true;
+        this.organizacion = { ...organizacion }
     }
 
     editOrganizacion(organizacion: Organizacion) {
@@ -66,7 +67,7 @@ export class OrganizacionComponent implements OnInit {
 
     async deleteOrganizacion(organizacion: Organizacion) {
         this.deleteOrganizacionDialog = true;
-        // this.organizacion = { ...organizacion };
+        this.organizacion = { ...organizacion };
     }
 
     confirmDeleteSelected() {
@@ -82,8 +83,9 @@ export class OrganizacionComponent implements OnInit {
 
         if (organizacion.id !== undefined) {
             this.api.deleteOrganizaciones(organizacion.id).subscribe((data) => {
-                this.organizaciones = this.organizaciones.filter(val => val.id !== this.organizacion.id);
+                this.organizaciones = this.organizaciones.filter(val => val.id !== organizacion.id);
                 this.messageService.add({ severity: 'success', summary: 'Elimnado con Éxito', detail: 'Eliminado', life: 3000 });
+                this.organizacion = {};
             })
         }
     }

@@ -67,7 +67,7 @@ export class TendenciasComponent {
     }
 
     async deleteTendencias(tendencia: Tendencias) {
-        this.deleteTendenciasDialog = true;
+        this.deleteTendenciaDialog = true;
         // this.marketing = { ...marketing };    
     }
 
@@ -79,13 +79,15 @@ export class TendenciasComponent {
     }
 
     confirmDelete(tendencia: Tendencias) {
-      this.deleteTendenciasDialog = false;
-      // this.organizacion = {};
-
+      this.deleteTendenciaDialog = false;
+      
+        console.log(tendencia)
       if (tendencia.id !== undefined) {
+        console.log("Hola")
           this.api.deleteTendencias(tendencia.id).subscribe((data) => {
-              this.tendencias = this.tendencias.filter(val => val.id !== this.tendencia.id);
+              this.tendencias = this.tendencias.filter(val => val.id !== tendencia.id);
               this.messageService.add({ severity: 'success', summary: 'Elimnado con Éxito', detail: 'Eliminado', life: 3000 });
+              this.tendencia = {};
           })
       }
     }
@@ -97,7 +99,7 @@ export class TendenciasComponent {
 
     saveTendencias() {
         this.submitted = true;
-
+        console.log(this.tendencia)
         if (this.tendencia.marketsize?.trim()) {
 
           if (this.tendencia.id) {
@@ -113,7 +115,7 @@ export class TendenciasComponent {
           } else {
               this.api.addTendencias(this.tendencia).subscribe((data) => {
                   this.tendencias.push({
-                    ...this.tendencias, 
+                    ...this.tendencia, 
                     id: data.id
                  });
                   this.messageService.add({ severity: 'success', summary: 'Creado con Éxito', detail: 'Organización creada', life: 3000 });

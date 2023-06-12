@@ -64,7 +64,7 @@ export class MarketingComponent implements OnInit {
 
     async deleteMarketing(marketing: Marketing) {
         this.deleteMarketingDialog = true;
-        // this.marketing = { ...marketing };    
+        this.marketing = { ...marketing };    
     }
 
     confirmDeleteSelected() {
@@ -75,14 +75,15 @@ export class MarketingComponent implements OnInit {
     }
 
     confirmDelete(marketing: Marketing) {
-      this.deleteMarketingsDialog = false;
+      this.deleteMarketingDialog = false;
       // this.organizacion = {};
 
       if (marketing.id !== undefined) {
           this.api.deleteMarketing(marketing.id).subscribe((data) => {
               this.marketings = this.marketings.filter(val => val.id !== this.marketing.id);
               this.messageService.add({ severity: 'success', summary: 'Elimnado con Éxito', detail: 'Eliminado', life: 3000 });
-          })
+              this.marketing = {};
+            })
       }
     }
 

@@ -4,5 +4,5 @@ export interface Tendencias{
     growth?: string;
     opportunities?: string;
     threats?: string;
-    competitionId?: string;
+    competitionId?: number;
 }

@@ -4,9 +4,11 @@
             <p-toast></p-toast>
             <p-toolbar styleClass="mb-4">
                 <ng-template pTemplate="left">
+
                     <div class="my-2">
                         <button pButton pRipple label="Agregar" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
                         <button pButton pRipple label="Eliminar" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedDonaciones()" [disabled]="!selectedDonaciones || !selectedDonaciones.length"></button>
+
                     </div>
                 </ng-template>
 
@@ -48,7 +50,7 @@
                             <span class="p-column-title">Nombre</span>
                             {{dona.donanteNombre}}
                         </td>
-                        
+
                         <td style="width:14%; min-width:10rem;">
                             <span class="p-column-title">Cantidad Donada</span>
                             {{dona.cantidadDonada}}
@@ -61,6 +63,7 @@
                         <td style="width:14%; min-width:13rem;">
                             <span class="p-column-title">Id Proyecto</span>
                             {{dona.proyectoId}}
+
                         </td>
                         
                         <td>

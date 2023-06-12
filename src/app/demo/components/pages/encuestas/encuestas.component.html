@@ -7,9 +7,9 @@
                     <div class="my-2 text-right">
                         <button pButton pRipple label="Agregar" icon="pi pi-plus" class="p-button-success mr-2"
                             (click)="openNew()"></button>
-                        <button pButton pRipple label="Eliminar" icon="pi pi-trash" class="p-button-danger"
-                            (click)="deleteSelectedEncuestas()"
-                            [disabled]="!selectedEncuestas || !selectedEncuestas.length"></button>
+                        <!-- <button pButton pRipple label="Eliminar" icon="pi pi-trash" class="p-button-danger"
+                            (click)="deleteSelectedEncuestas(encuesta)"
+                            [disabled]="!selectedEncuestas || !selectedEncuestas.length"></button> -->
                     </div>
                 </ng-template>
 
@@ -61,11 +61,11 @@
                         <!-- <td style="width:14%; min-width:10rem;"><span class="p-column-title">Code</span>
                             {{product.code || product.id}}
                         </td> -->
-                        <td style="width:30%; min-width:10rem;">
+                        <td style="width:5%; min-width:10rem;">
                             <span class="p-column-title">Cliente</span>
                             {{encuesta.customerId}}
                         </td>
-                        <td style="width:30%; min-width:10rem;">
+                        <td style="width:35%; min-width:10rem;">
                             <span class="p-column-title">Opinión</span>
                             {{encuesta.opinion}}
                         </td>
@@ -73,13 +73,13 @@
                             <span class="p-column-title">Sugerencia</span>
                             {{encuesta.suggestions}}
                         </td>
-                        <td style="width:30%; min-width:10rem;">
+                        <td style="width:20%; min-width:10rem;">
                             <span class="p-column-title">Queja</span>
                             {{encuesta.complaints}}
                         </td>
                         <td style="width:30%; min-width:10rem;">
                             <span class="p-column-title">Fecha</span>
-                            {{encuesta.date}}
+                            {{showDate(encuesta.date)}}
                         </td>
                         <td>
                             <div class="flex">
@@ -96,7 +96,7 @@
                         [style]="{width:'450px'}">
                         <div class="flex align-items-center justify-content-center">
                             <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
-                            <span *ngIf="encuesta">¿Estás seguro de que quieres borrar? <b>{{encuesta.opinion}}</b></span>
+                            <span *ngIf="encuesta">¿Estás seguro de que quieres borrar?</span>
                         </div>
                         <ng-template pTemplate="footer">
                             <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No"
@@ -148,7 +148,7 @@
                 <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text"
                     (click)="hideDialog()"></button>
                 <button pButton pRipple label="Guardar" icon="pi pi-check" class="p-button-text"
-                    (click)="saveMarketing()"></button>
+                    (click)="saveEncuesta()"></button>
             </ng-template>
         </p-dialog>
 

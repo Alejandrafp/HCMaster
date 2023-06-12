@@ -5,7 +5,7 @@ export interface Proyectos {
     category?: string;
     startDate?: Date;
     endDate?: Date;
-    budget?: string;
+    budget?: number;
     organizationID?: number;
     organizationName?: string;
 }

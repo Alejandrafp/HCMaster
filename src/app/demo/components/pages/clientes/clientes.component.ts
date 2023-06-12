@@ -55,9 +55,9 @@ export class ClientesComponent {
       this.clientesDialog = true;
   }
 
-  async deleteSelectedClientes() {
+  async deleteSelectedClientes(clientes: Clientes) {
       this.deleteClientesDialog = true;
-
+      this.cliente = { ...clientes };
   }
 
   editClientes(cliente: Clientes) {
@@ -66,7 +66,8 @@ export class ClientesComponent {
   }
 
   async deleteClientes(cliente: Clientes) {
-      this.deleteClientesDialog = true;
+      this.deleteClienteDialog = true;
+      this.cliente = { ...cliente };
   }
 
   confirmDeleteSelected() {
@@ -77,7 +78,7 @@ export class ClientesComponent {
   }
 
   confirmDelete(cliente: Clientes) {
-      this.deleteClientesDialog = false;
+      this.deleteClienteDialog = false;
 
       // console.log(c);
 
@@ -85,7 +86,9 @@ export class ClientesComponent {
       if (cliente.id !== undefined) {
           this.api.deleteClientes(cliente.id).subscribe((data) => {
               this.clientes = this.clientes.filter((item) => (item.id !== cliente.id));
-          })
+              this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000 });
+              this.cliente = {};  
+            })
       }
 
   }

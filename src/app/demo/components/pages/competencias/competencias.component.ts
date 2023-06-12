@@ -84,7 +84,7 @@ export class CompetenciasComponent implements OnInit {
 
       if (competencia.id !== undefined) {
           this.api.deleteCompetencias(competencia.id).subscribe((data) => {
-              this.competencias = this.competencias.filter(val => val.id !== this.competencia.id);
+              this.competencias = this.competencias.filter(val => val.id !== competencia.id);
               this.messageService.add({ severity: 'success', summary: 'Elimnado con Éxito', detail: 'Eliminado', life: 3000 });
           })
       }
