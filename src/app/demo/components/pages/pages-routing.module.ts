@@ -7,6 +7,12 @@ import { RouterModule } from '@angular/router';
         { path: 'organizacion', loadChildren: () => import('./organizacion/organizacion.module').then(m => m.OrganizacionModule) },
         { path: 'proyectos', loadChildren: () => import('./proyectos/proyectos.module').then(m => m.ProyectosModule) },
         { path: 'usuario', loadChildren: () => import('./usuario/usuario.module').then(m => m.UsuarioModule) },
+        { path: 'marketing', loadChildren: () => import('./marketing/marketing.module').then(m => m.MarketingModule) },
+        { path: 'clientes', loadChildren: () => import('./clientes/clientes.module').then(m => m.ClientesModule) },
+        { path: 'competencias', loadChildren: () => import('./competencias/competencias.module').then(m => m.CompetenciasModule) },
+        { path: 'voluntarios', loadChildren: () => import('./voluntarios/voluntarios.module').then(m => m.VoluntariosModule) },
+        { path: 'donaciones', loadChildren: () => import('./donaciones/donaciones.module').then(m => m.DonacionesModule) },
+        { path: 'actividades-voluntariados', loadChildren: () => import('./actividades-voluntariados/actividades.module').then(m => m.ActividadesVoluntariadoModule) },
         { path: '**', redirectTo: '/notfound' }
     ])],
     exports: [RouterModule]

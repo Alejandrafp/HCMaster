@@ -60,6 +60,23 @@ export class AppMenuComponent implements OnInit {
                         icon: 'pi pi-wrench',
                         routerLink: ['/pages/proyectos']
                     },
+
+                    {
+                        label: 'Voluntario',
+                        icon: 'pi pi-wrench',
+                        routerLink: ['/pages/voluntarios']
+                    },
+                    {
+                        label: 'Donaciones',
+                        icon: 'pi pi-wrench',
+                        routerLink: ['/pages/donaciones']
+                    },
+                    {
+                        label: 'Actividades de Voluntarios',
+                        icon: 'pi pi-wrench',
+                        routerLink: ['/pages/actividades-voluntariados']
+                    },
+                        
                         
                 ]
             }
