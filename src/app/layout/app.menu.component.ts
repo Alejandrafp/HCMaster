@@ -89,8 +89,7 @@ export class AppMenuComponent implements OnInit {
                         icon: 'pi pi-wrench',
                         routerLink: ['/pages/actividades-voluntariados']
                     },
-                        
-                        
+                    {
                         label: 'Encuestas',
                         icon: 'pi pi-send',
                         routerLink: ['/pages/encuestas']

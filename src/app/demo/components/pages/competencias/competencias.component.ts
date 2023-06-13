@@ -68,6 +68,7 @@ export class CompetenciasComponent implements OnInit {
 
     async deleteCompetencia(competencia: Competencias) {
         this.deleteCompetenciaDialog = true;
+        console.log(competencia)
         // this.marketing = { ...marketing };    
     }
 
@@ -79,7 +80,7 @@ export class CompetenciasComponent implements OnInit {
     }
 
     confirmDelete(competencia: Competencias) {
-      this.deleteCompetenciasDialog = false;
+      this.deleteCompetenciaDialog = false;
       // this.organizacion = {};
 
       if (competencia.id !== undefined) {
@@ -112,6 +113,7 @@ export class CompetenciasComponent implements OnInit {
               })
           } else {
               this.api.addCompetencias(this.competencia).subscribe((data) => {
+                console.log(data, this.competencias)
                   this.competencias.push({ ...this.competencia, id: data.id });
                   this.messageService.add({ severity: 'success', summary: 'Creado con Éxito', detail: 'Organización creada', life: 3000 });
 

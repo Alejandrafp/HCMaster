@@ -37,58 +37,44 @@
                 </ng-template>
                 <ng-template pTemplate="header">
                     <tr>
-                        <th style="width: 3rem">
-                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-                        </th>
-                        <!-- <th pSortableColumn="code">Code <p-sortIcon field="code"></p-sortIcon></th> -->
                         <th pSortableColumn="name">Nombre<p-sortIcon field="name"></p-sortIcon></th>
                         <th pSortableColumn="product">Producto</th>
                         <th pSortableColumn="strategies">Estrategias de marketing</th>
                         <th pSortableColumn="analysisPrices">Analisis de precios</th>
                         <th pSortableColumn="chanelId">Id de canal marketing</th>
-                        <!-- <th>Image</th> -->
-                        <!-- <th pSortableColumn="price">Price <p-sortIcon field="price"></p-sortIcon></th> -->
-                        <!-- <th pSortableColumn="category">Category <p-sortIcon field="category"></p-sortIcon></th> -->
-                        <!-- <th pSortableColumn="rating">Reviews <p-sortIcon field="rating"></p-sortIcon></th> -->
-                        <!-- <th pSortableColumn="inventorylastname">lastname <p-sortIcon field="inventorylastname"></p-sortIcon></th> -->
+    
                         <th></th>
                     </tr>
                 </ng-template>
-                <ng-template pTemplate="body" let-competencias>
+                <ng-template pTemplate="body" let-competencia>
                     <tr>
-                        <td>
-                            <p-tableCheckbox [value]="competencias"></p-tableCheckbox>
-                        </td>
-                        <!-- <td style="width:14%; min-width:10rem;"><span class="p-column-title">Code</span>
-                            {{product.code || product.id}}
-                        </td> -->
                         <td style="width:30%; min-width:10rem;">
                             <span class="p-column-title">Nombre</span>
-                            {{competencias.name}}
+                            {{competencia.name}}
                         </td>
                         <td style="width:30%; min-width:10rem;">
                             <span class="p-column-title">Producto</span>
-                            {{competencias.product}}
+                            {{competencia.product}}
                         </td>
                         <td style="width:30%; min-width:10rem;">
                             <span class="p-column-title">Estrategias de marketing</span>
-                            {{competencias.strategies}}
+                            {{competencia.strategies}}
                         </td>
                         <td style="width:30%; min-width:10rem;">
                             <span class="p-column-title">Analisis de precios</span>
-                            {{competencias.analysisPrices}}
+                            {{competencia.analysisPrices}}
                         </td>
                         <td style="width:30%; min-width:10rem;">
                             <span class="p-column-title">Id de canal marketing</span>
-                            {{competencias.chanelId}}
+                            {{competencia.chanelId}}
                         </td>
                         <td>
                             <div class="flex">
                                 <button pButton pRipple icon="pi pi-pencil"
                                     class="p-button-rounded p-button-success mr-2"
-                                    (click)="editCompetencia(competencias)"></button>
+                                    (click)="editCompetencia(competencia)"></button>
                                 <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
-                                    (click)="deleteCompetencia(competencias)"></button>
+                                    (click)="deleteCompetencia(competencia)"></button>
                             </div>
                         </td>
                     </tr>
@@ -97,13 +83,13 @@
                         [style]="{width:'450px'}">
                         <div class="flex align-items-center justify-content-center">
                             <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
-                            <span *ngIf="competencias">¿Estás seguro de que quieres borrar? <b>{{competencias.name}}</b></span>
+                            <span *ngIf="competencia">¿Estás seguro de que quieres borrar?</span>
                         </div>
                         <ng-template pTemplate="footer">
                             <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No"
-                                (click)="deleteCompetenciasDialog = false"></button>
+                                (click)="deleteCompetenciaDialog = false"></button>
                             <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes"
-                                (click)="confirmDelete(competencias)"></button>
+                                (click)="confirmDelete(competencia)"></button>
                         </ng-template>
                     </p-dialog>
                 </ng-template>

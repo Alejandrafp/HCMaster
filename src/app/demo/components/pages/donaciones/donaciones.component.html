@@ -7,7 +7,7 @@
 
                     <div class="my-2">
                         <button pButton pRipple label="Agregar" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
-                        <button pButton pRipple label="Eliminar" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedDonaciones()" [disabled]="!selectedDonaciones || !selectedDonaciones.length"></button>
+                        <!-- <button pButton pRipple label="Eliminar" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedDonaciones()" [disabled]="!selectedDonaciones || !selectedDonaciones.length"></button> -->
 
                     </div>
                 </ng-template>
@@ -27,9 +27,9 @@
                 </ng-template>
                 <ng-template pTemplate="header">
                     <tr>
-                        <th style="width: 3rem">
+                        <!-- <th style="width: 3rem">
                             <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-                        </th>
+                        </th> -->
 
                         <th pSortableColumn="donanteNombre">Nombre<p-sortIcon field="donanteNombre"></p-sortIcon></th>
                         <th pSortableColumn="cantidadDonada">Cantidad Donada</th>
@@ -42,9 +42,9 @@
                 </ng-template>
                 <ng-template pTemplate="body" let-dona>
                     <tr>
-                        <td>
+                        <!-- <td>
                             <p-tableCheckbox [value]="dona"></p-tableCheckbox>
-                        </td>
+                        </td> -->
                        
                         <td style="width:14%; min-width:10rem;">
                             <span class="p-column-title">Nombre</span>
