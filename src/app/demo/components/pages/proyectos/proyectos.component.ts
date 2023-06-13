@@ -1,16 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Injector, OnInit, ViewChild } from '@angular/core';
 import { MessageService, SelectItem } from 'primeng/api';
 import { Table } from 'primeng/table/table';
 import { Proyectos } from 'src/app/demo/api/proyectos';
 import { OrganizacionService } from 'src/app/demo/service/organizacion.service';
 import { ProyectosService } from 'src/app/demo/service/proyectos.service';
+import * as XLSX from 'xlsx';
 
 @Component({
   templateUrl: './proyectos.component.html',
-  providers: [MessageService]
+  providers: [MessageService ]
 })
 export class ProyectosComponent implements OnInit {
-
+    @ViewChild('dt', { static: false }) dt!: Table;
     proyectosDialog: boolean = false;
 
     deleteProyectoDialog: boolean = false;
@@ -32,11 +33,40 @@ export class ProyectosComponent implements OnInit {
     selectedDrop: SelectItem = { label:"name",value: "id" };
     options: any;
 
+    exporterService: any;
+
     rowsPerPageOptions = [5, 10, 20];
 
-    constructor(private api: ProyectosService,
+    exportTable(): void {
+        const fileName = 'table_data.xlsx';
+
+        // Get the table data as an array of objects
+        const tableData = this.dt.value;
+
+        // Convert the data to a worksheet
+        const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(tableData);
+
+        // Create the workbook and add the worksheet
+        const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+
+        // Convert the workbook to an Excel file buffer
+        const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+
+        // Save the file
+        this.saveAsExcelFile(excelBuffer, fileName);
+      }
+
+      saveAsExcelFile(buffer: any, fileName: string): void {
+        const data: Blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8' });
+        const downloadLink = document.createElement('a');
+        downloadLink.href = window.URL.createObjectURL(data);
+        downloadLink.download = fileName;
+        downloadLink.click();
+      }
+    constructor(private api: ProyectosService,private injector: Injector,
         private messageService: MessageService,
-        private organizacionesService: OrganizacionService) { }
+        private organizacionesService: OrganizacionService) {
+         }
 
     async ngOnInit() {
 
@@ -51,13 +81,13 @@ export class ProyectosComponent implements OnInit {
                     startDate: item.fechaInicio,
                     endDate: item.fechaFinalizacion,
                     budget: item.presupuesto,
-                    organizationID: item.organizacionId,
-                    organization: item.organizacion.nombre,
+                    organizationID: item?.organizacionId,
+                    organization: item?.organizacion?.nombre,
                     organizationName: item.organizacionNombre
                 }
             });
 
-            
+
         })
         this.organizacionesService.getOrganizaciones().subscribe((data) => {
 
@@ -191,5 +221,5 @@ export class ProyectosComponent implements OnInit {
             table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
         }
 
-        
+
     }
