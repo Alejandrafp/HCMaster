@@ -7,7 +7,6 @@
                 <ng-template pTemplate="left">
                     <div class="my-2">
                         <button pButton pRipple label="Agregar" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
-                        <button pButton pRipple label="Eliminar" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedActividadesVoluntariado()" [disabled]="!selectedActividadesVoluntariados || !selectedActividadesVoluntariados.length"></button>
                     </div>
                 </ng-template>
 
@@ -25,10 +24,6 @@
                 </ng-template>
                 <ng-template pTemplate="header">
                     <tr>
-                        <th style="width: 3rem">
-                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-                        </th>
-                        <!-- <th pSortableColumn="code">Code <p-sortIcon field="code"></p-sortIcon></th> -->
                         <th pSortableColumn="titulo">Título<p-sortIcon field="titulo"></p-sortIcon></th>
                         <th pSortableColumn="description">Descripción</th>
                         <th pSortableColumn="ubicacion">Ubicación</th>
@@ -40,11 +35,7 @@
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-activ>
-                    <tr>
-                        <td>
-                            <p-tableCheckbox [value]="activ"></p-tableCheckbox>
-                        </td>
-                       
+                    <tr> 
                         <td style="width:14%; min-width:10rem;">
                             <span class="p-column-title">Título</span>
                             {{activ.titulo}}
@@ -65,13 +56,10 @@
                             <span class="p-column-title">Voluntarios Requeridos</span>
                             {{activ.voluntariosRequeridos}}
                         </td>
-                        
                         <td style="width:14%; min-width:13rem;">
                             <span class="p-column-title">Id Organización</span>
                             {{activ.organizacionId}}
                         </td>
-                        
-                     
                         <td>
                             <div class="flex">
                                 <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editActividadesVoluntariado(activ)"></button>
@@ -126,13 +114,8 @@
                     <label for="organizacionId">Id Organización</label>
                     <input type="text" pInputText id="organizacionId" [(ngModel)]="acti.organizacionId" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !acti.organizacionId}"/>
                     <small class="ng-dirty ng-invalid" *ngIf="submitted && !acti.organizacionId">ID Organización es querido.</small>
-              </div>
-                
-         
-
-               
+              </div> 
             </ng-template>
-
             <ng-template pTemplate="footer">
                 <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
                 <button pButton pRipple label="Guardar" icon="pi pi-check" class="p-button-text" (click)="saveActividadesVoluntariado()"></button>

@@ -85,7 +85,7 @@ export class EncuestasComponent {
     }
 
     confirmDelete(encuesta: Encuestas) {
-      this.deleteEncuestasDialog = false;
+      this.deleteEncuestaDialog = false;
       // this.organizacion = {};
 
       if (encuesta.id !== undefined) {

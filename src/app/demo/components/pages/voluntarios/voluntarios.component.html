@@ -7,9 +7,9 @@
                     <div class="my-2 text-right">
                         <button pButton pRipple label="Agregar" icon="pi pi-plus" class="p-button-success mr-2"
                             (click)="openNew()"></button>
-                        <button pButton pRipple label="Eliminar" icon="pi pi-trash" class="p-button-danger"
+                        <!-- <button pButton pRipple label="Eliminar" icon="pi pi-trash" class="p-button-danger"
                             (click)="deleteSelectedVoluntarios()"
-                            [disabled]="!selectedVoluntario || !selectedVoluntario.length"></button>
+                            [disabled]="!selectedVoluntario || !selectedVoluntario.length"></button> -->
                     </div>
                 </ng-template>
 
@@ -33,9 +33,9 @@
                 </ng-template>
                 <ng-template pTemplate="header">
                     <tr>
-                        <th style="width: 3rem">
+                        <!-- <th style="width: 3rem">
                             <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-                        </th>
+                        </th> -->
                        
                         <th pSortableColumn="nombre">Nombre <p-sortIcon field="nombre"></p-sortIcon></th>
                         <th pSortableColumn="apellido">Apellido</th>
@@ -49,9 +49,9 @@
                 </ng-template>
                 <ng-template pTemplate="body" let-volu>
                     <tr>
-                        <td>
+                        <!-- <td>
                             <p-tableCheckbox [value]="volu"></p-tableCheckbox>
-                        </td>
+                        </td> -->
                        
                         <td style="width:14%; min-width:10rem;">
                             <span class="p-column-title">Nombre</span>
