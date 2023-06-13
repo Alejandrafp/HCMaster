@@ -13,12 +13,8 @@ export class MarketingService {
   constructor(private http: HttpClient) { }
 
   createMarketing(marketing: Marketing) {
-    this.getMarketings();
-    let marketing2: Marketing = {
-      canal: "Amed111"
-    }
     let headers = new HttpHeaders();
-    let body = JSON.stringify(marketing2);
+    let body = JSON.stringify(marketing);
     alert(body)
     //headers.append("accept", "text/plain");
     headers.append("Content-Type", "application/json");
@@ -31,4 +27,11 @@ export class MarketingService {
     .then(res => res.data as Marketing[])
     .then(data => console.log("data",data));
   }
+
+  deleteMarketing(id:number) {
+    this.http.delete<any>("https://localhost:7036/api/CanalesMarketings/"+id)
+    .toPromise();
+  }
+
+
 }

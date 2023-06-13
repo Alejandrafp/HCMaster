@@ -68,12 +68,16 @@ export class MarketingComponent implements OnInit {
         this.deleteMarketingsDialog = false;
         this.marketings = this.marketings.filter(val => !this.selectedMarketings.includes(val));
         this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'marketings Deleted', life: 3000 });
+        for(let marketing of this.selectedMarketings){
+            this.marketingService.deleteMarketing(marketing.id!);
+        }
         this.selectedMarketings = [];
     }
 
     confirmDelete() {
         this.deleteMarketingDialog = false;
         this.marketings = this.marketings.filter(val => val.id !== this.marketing.id);
+        this.marketingService.deleteMarketing(this.marketing.id!);
         this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'marketing Deleted', life: 3000 });
         this.marketing = {};
     }
