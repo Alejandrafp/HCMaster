@@ -31,8 +31,8 @@
         <div class="card mb-0">
             <div class="flex justify-content-between mb-3">
                 <div>
-                    <span class="block text-500 font-medium mb-3">Proyecto 1</span>
-                    <div class="text-900 font-medium text-xl">28441</div>
+                    <span class="block text-500 font-medium mb-3">Donaciones por proyecto {{informeAnalisis?.[0].proyecto?.titulo}}</span>
+                    <div class="text-900 font-medium text-xl">{{informeAnalisis?.[0].donacionesTotales}}</div>
                 </div>
                 <div class="flex align-items-center justify-content-center bg-cyan-100 border-round"
                     [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
@@ -45,8 +45,8 @@
         <div class="card mb-0">
             <div class="flex justify-content-between mb-3">
                 <div>
-                    <span class="block text-500 font-medium mb-3">Proyecto categoria 1</span>
-                    <div class="text-900 font-medium text-xl">28441</div>
+                    <span class="block text-500 font-medium mb-3">Proyectos por {{proyectos[0]?.category}}</span>
+                    <div class="text-900 font-medium text-xl">{{cantidadProyectosCat?.length}}</div>
                 </div>
                 <div class="flex align-items-center justify-content-center bg-cyan-100 border-round"
                     [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
@@ -59,16 +59,15 @@
 
 <div class="grid p-fluid">
     <div class="col-12 lg:col-6">
-        <div class="card">
-            <h5>Linear Chart</h5>
-            <p-chart type="line" [data]="lineData" [options]="lineOptions"></p-chart>
+        <div class="card flex flex-column align-items-center">
+            <h5>Tendencias del Mercado por Crecimiento  </h5>
+            <p-chart width="500" height="500" title="Tendencias del Mercado por Crecimiento" type="pie" [data]="pieData" [options]="pieOptions"></p-chart>
         </div>
     </div>
     <div class="col-12 lg:col-6">
-
-        <div class="card">
-            <h5>Bar Chart</h5>
-            <p-chart type="bar" [data]="barData" [options]="barOptions"></p-chart>
+        <div class="card ">
+            <h5>Comparacion competencia </h5>
+            <p-chart width="500" height="515" type="bar" [data]="barData" [options]="barOptions"></p-chart>
         </div>
     </div>
 </div>

@@ -18,7 +18,7 @@
                         <h5 class="m-0">Actividades de Voluntarios</h5>
                         <span class="block mt-2 md:mt-0 p-input-icon-left">
                             <i class="pi pi-search"></i>
-                          
+
                         </span>
                     </div>
                 </ng-template>
@@ -27,15 +27,15 @@
                         <th pSortableColumn="titulo">Título<p-sortIcon field="titulo"></p-sortIcon></th>
                         <th pSortableColumn="description">Descripción</th>
                         <th pSortableColumn="ubicacion">Ubicación</th>
-                        <th pSortableColumn="fechahora">Fecha y Hora</th> 
+                        <th pSortableColumn="fechahora">Fecha y Hora</th>
                         <th pSortableColumn="volunrequeridos">Voluntarios Requeridos</th>
                         <th pSortableColumn="organizacioniD">Id organización</th>
-                       
+
                         <th></th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-activ>
-                    <tr> 
+                    <tr>
                         <td style="width:14%; min-width:10rem;">
                             <span class="p-column-title">Título</span>
                             {{activ.titulo}}
@@ -101,10 +101,10 @@
                 </div>
                 <div class="field">
                     <label for="fechaHora">Fecha y Hora</label>
-                    <input type="text" pInputText id="fechaHora" [(ngModel)]="acti.fechaHora" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !acti.fechaHora}"/>
+                    <input type="datetime-local" pInputText id="fechaHora" [(ngModel)]="acti.fechaHora" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !acti.fechaHora}"/>
                     <small class="ng-dirty ng-invalid" *ngIf="submitted && !acti.fechaHora">La fecha es requerida.</small>
                 </div>
-            
+
                 <div class="field">
                     <label for="voluntariosRequeridos">Voluntarios Requeridos</label>
                     <input type="text" pInputText id="voluntariosRequeridos" [(ngModel)]="acti.voluntariosRequeridos" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !acti.voluntariosRequeridos}"/>
@@ -114,7 +114,7 @@
                     <label for="organizacionId">Id Organización</label>
                     <input type="text" pInputText id="organizacionId" [(ngModel)]="acti.organizacionId" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !acti.organizacionId}"/>
                     <small class="ng-dirty ng-invalid" *ngIf="submitted && !acti.organizacionId">ID Organización es querido.</small>
-              </div> 
+              </div>
             </ng-template>
             <ng-template pTemplate="footer">
                 <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
@@ -122,7 +122,7 @@
             </ng-template>
         </p-dialog>
 
-       
+
         <p-dialog [(visible)]="deleteActividadesVoluntariadoDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">
             <div class="flex align-items-center justify-content-center">
                 <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>

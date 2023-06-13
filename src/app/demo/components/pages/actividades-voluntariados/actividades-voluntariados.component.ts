@@ -11,7 +11,7 @@ import { ActividadesVoluntariadoService } from 'src/app/demo/service/actividades
   providers: [MessageService]
 })
 export class ActividadesVoluntariadoComponent implements OnInit {
-  
+
     actiDialog: boolean = false;
 
     deleteActividadesVoluntariadoDialog: boolean = false;
@@ -44,10 +44,10 @@ export class ActividadesVoluntariadoComponent implements OnInit {
                     titulo: item.titulo,
                     descripcion: item.descripcion,
                     ubicacion: item.ubicacion,
-                    fechaHora: item.fechaHora,  
-                    voluntariosRequeridos: item.voluntariosRequeridos ,       
+                    fechaHora: item.fechaHora,
+                    voluntariosRequeridos: item.voluntariosRequeridos ,
                     organizacionId: item.organizacionId
-                   
+
                 }
             });
         })
@@ -90,9 +90,9 @@ export class ActividadesVoluntariadoComponent implements OnInit {
                 this.activ = this.activ.filter((item) => (item.id !== acti.id));
             })
         }
-     
+
     }
-  
+
 
     hideDialog() {
         this.actiDialog = false;
@@ -108,7 +108,7 @@ export class ActividadesVoluntariadoComponent implements OnInit {
                     const index = this.activ.findIndex((user) => (user.id === this.acti.id));
                     this.activ[index] = this.acti;
                     this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Actividades actualizado', life: 3000 });
-                    
+
                     this.activ = [...this.activ];
                     this.actiDialog = false;
                     this.acti = {};

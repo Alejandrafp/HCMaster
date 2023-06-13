@@ -27,7 +27,7 @@ export class ActividadesVoluntariadoService {
       "titulo": titulo,
       "descripcion": descripcion,
       "ubicacion": ubicacion,
-      "fechayHora": fechaHora,
+      "fechaHora": fechaHora,
       "voluntariosRequeridos": voluntariosRequeridos,
       "organizacionId": organizacionId
     }
@@ -39,6 +39,7 @@ export class ActividadesVoluntariadoService {
 
     return this.http.put<any>(this.HCMasterURL + `/ActividadesVoluntariados/${id}`, {
       "titulo": titulo,
+      "id": id,
       "descripcion": descripcion,
       "ubicacion": ubicacion,
       "fechaHora": fechaHora,
