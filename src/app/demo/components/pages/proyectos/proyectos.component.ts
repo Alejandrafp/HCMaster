@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { MessageService, SelectItem } from 'primeng/api';
 import { Table } from 'primeng/table/table';
 import { Proyectos } from 'src/app/demo/api/proyectos';
+import { OrganizacionService } from 'src/app/demo/service/organizacion.service';
 import { ProyectosService } from 'src/app/demo/service/proyectos.service';
 
 @Component({
@@ -9,7 +10,7 @@ import { ProyectosService } from 'src/app/demo/service/proyectos.service';
   providers: [MessageService]
 })
 export class ProyectosComponent implements OnInit {
-  
+
     proyectosDialog: boolean = false;
 
     deleteProyectoDialog: boolean = false;
@@ -27,10 +28,15 @@ export class ProyectosComponent implements OnInit {
     cols: any[] = [];
 
     statuses: any[] = [];
+    organizaciones: any;
+    selectedDrop: SelectItem = { label:"name",value: "id" };
+    options: any;
 
     rowsPerPageOptions = [5, 10, 20];
 
-    constructor(private api: ProyectosService, private messageService: MessageService) { }
+    constructor(private api: ProyectosService,
+        private messageService: MessageService,
+        private organizacionesService: OrganizacionService) { }
 
     async ngOnInit() {
 
@@ -46,10 +52,33 @@ export class ProyectosComponent implements OnInit {
                     endDate: item.fechaFinalizacion,
                     budget: item.presupuesto,
                     organizationID: item.organizacionId,
-                    organization: item.organizacion,
+                    organization: item.organizacion.nombre,
                     organizationName: item.organizacionNombre
                 }
             });
+
+            
+        })
+        this.organizacionesService.getOrganizaciones().subscribe((data) => {
+
+            this.organizaciones = data.map((item) => {
+                return {
+                    id: item.id,
+                    name: item.nombre,
+                    address: item.direccion,
+                    email: item.correoElectronico,
+                    phone: item.telefono,
+                    description: item.descripcion,
+                }
+            });
+
+            this.options = data.map((item) => {
+                return {
+                  label: item.nombre,
+                  value: item.id
+
+                };
+              })
         })
     }
 
@@ -97,6 +126,10 @@ export class ProyectosComponent implements OnInit {
         }
     }
 
+    OnChange($event: any) {
+        this.proyecto.organizationID = $event.value
+    }
+
     hideDialog() {
         this.proyectosDialog = false;
         this.submitted = false;
@@ -113,15 +146,15 @@ export class ProyectosComponent implements OnInit {
                     const index = this.proyectos.findIndex((user) => (user.id === this.proyecto.id));
                     this.proyectos[index] = this.proyecto;
                     this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Organización actualizado', life: 3000 });
-                    
+
                     this.proyectos = [...this.proyectos];
                     this.proyectosDialog = false;
                     this.proyecto = {};
                 })
             } else {
                 this.api.addProyectos(this.proyecto).subscribe((data) => {
-                    this.proyectos.push({ 
-                        ...this.proyecto, id: data.id });
+                    this.proyectos.push({
+                        ...this.proyecto, id: data.id});
                     this.messageService.add({ severity: 'success', summary: 'Creado con Éxito', detail: 'Organización creada', life: 3000 });
 
 
@@ -157,4 +190,6 @@ export class ProyectosComponent implements OnInit {
         onGlobalFilter(table: Table, event: Event) {
             table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
         }
+
+        
     }

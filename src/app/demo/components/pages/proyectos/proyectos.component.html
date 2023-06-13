@@ -39,7 +39,7 @@
                         <th pSortableColumn="startDate">Fecha Inicio</th>
                         <th pSortableColumn="endDate">Fecha Final</th>
                         <th pSortableColumn="budget">Presupuesto</th>
-                        <th pSortableColumn="organizationID">Id organización</th>
+                        <th pSortableColumn="organization">Id organización</th>
                         <!-- <th pSortableColumn="organizationName">Nombre de la organización</th> -->
                         <!-- <th>Image</th> -->
                         <!-- <th pSortableColumn="price">Price <p-sortIcon field="price"></p-sortIcon></th> -->
@@ -83,13 +83,13 @@
                         </td>
                         <td style="width:14%; min-width:13rem;">
                             <span class="p-column-title">Id Organización</span>
-                            {{proyectos.organizationID}}
+                            {{proyectos.organization}}
                         </td>
                         <!-- <td style="width:14%; min-width:13rem;">
                             <span class="p-column-title">Nombre de la organización</span>
                             {{proyectos.organizationName}}
                         </td> -->
-                        
+
                         <td>
                             <div class="flex">
                                 <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editProyectos(proyectos)"></button>
@@ -146,17 +146,18 @@
                 </div>
                 <div class="field">
                     <label for="organizationID">Id Organización</label>
-                    <input type="number" pInputText id="organizationID" [(ngModel)]="proyecto.organizationID" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !proyecto.organizationID}"/>
+                    <p-dropdown [options]="options"  (onChange)="OnChange($event)" [(ngModel)]="proyecto.organizationID"  placeholder="Seleccione organizaciones" [showClear]="true"></p-dropdown>
                     <small class="ng-dirty ng-invalid" *ngIf="submitted && !proyecto.organizationID">organizationID is required.</small>
                 </div>
-                
+                <div style="height:200px"></div>
+
                 <!-- Si se necesita -->
                 <!-- <div class="field">
                     <label for="description">Descripción</label>
                     <textarea id="description" pInputTextarea [(ngModel)]="organizacion.description" required rows="3" cols="20"></textarea>
                 </div> -->
 
-               
+
             </ng-template>
 
             <ng-template pTemplate="footer">
@@ -165,7 +166,7 @@
             </ng-template>
         </p-dialog>
 
-       
+
         <p-dialog [(visible)]="deleteProyectosDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">
             <div class="flex align-items-center justify-content-center">
                 <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
