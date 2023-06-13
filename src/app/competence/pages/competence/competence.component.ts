@@ -70,6 +70,9 @@ export class CompetenceComponent implements OnInit {
     confirmDeleteSelected() {
         this.deleteCompetencesDialog = false;
         this.competences = this.competences.filter(val => !this.selectedCompetences.includes(val));
+        for(let competencia of this.selectedCompetences){
+            this.competenceService.deleteCompetence(competencia.id!);
+        }
         this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'competences Deleted', life: 3000 });
         this.selectedCompetences = [];
     }
@@ -77,6 +80,8 @@ export class CompetenceComponent implements OnInit {
     confirmDelete() {
         this.deleteCompetenceDialog = false;
         this.competences = this.competences.filter(val => val.id !== this.competence.id);
+
+        this.competenceService.deleteCompetence(this.competence.id!);
         this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'competence Deleted', life: 3000 });
         this.competence = {};
     }
@@ -96,7 +101,8 @@ export class CompetenceComponent implements OnInit {
                 this.competences[this.findIndexById(this.competence.id)] = this.competence;
                 this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'competence Updated', life: 3000 });
             } else {
-                this.competence.id = this.createId();
+                this.competenceService.saveCompetence(this.competence);
+                //this.competence.id = this.createId();
                 //this.competence.code = this.createId();
                 //this.competence.image = 'competence-placeholder.svg';
                 // @ts-ignore
@@ -113,12 +119,12 @@ export class CompetenceComponent implements OnInit {
 
     findIndexById(id: string): number {
         let index = -1;
-        for (let i = 0; i < this.competences.length; i++) {
+        /*for (let i = 0; i < this.competences.length; i++) {
             if (this.competences[i].id === id) {
                 index = i;
                 break;
             }
-        }
+        }*/
 
         return index;
     }
